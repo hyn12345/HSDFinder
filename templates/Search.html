@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+
+    <!-- Web Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Playfair+Display:400,700%7COpen+Sans:300,400,700" rel="stylesheet">
+
+    <!-- Bootstrap Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+
+    <!-- Components Vendor Styles -->
+    <script src="https://kit.fontawesome.com/020635d014.js" crossorigin="anonymous"></script>
+
+    <!-- Theme Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <style type="text/css">
+        .table tr td{
+            vertical-align: middle;
+            text-align: center;
+        }
+    </style>
+
+    <title>Search</title>
+</head>
+<body data-spy="scroll" data-target="#bs-example-navbar-collapse-1" data-offset="100">
+    <!-- Header -->
+    <header role="header">
+      <!-- Navbar -->
+      <nav class="js-navbar-scroll navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/database/">
+            HSDatabase
+          </a>
+
+          <button class="navbar-toggler" type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarTogglerDemo"
+
+                  aria-controls="navbarTogglerDemo"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo">
+
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/">Home</a>
+              </li>
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/browse/">Browse</a>
+              </li>
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link active" href="/database/search/">Search</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/blast/">Blast</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/kegg/">KEGG</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/faq/">Tutorial</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+
+
+    </header>
+    <!-- End Header -->
+
+    <main role="main">
+        <section class="u-content-space">
+            <div class="container">
+                <form id="page_form" class="form-inline my-2 my-lg-0" action="/database/search/search/">
+                    {% csrf_token %}
+                    <div class="form-group col-md-6">
+                    <label for="search_HSDid">Search by HSD ID or Gene ID&nbsp;&nbsp;</label>
+                    <input class="form-control w-50" id="search_HSDid" name="hsdid" type="search" placeholder="e.g. hsd_id_Athaliana">
+                    </div>
+                    <div class="form-group col-md-4">
+                    <label for="category_select">Select Category&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <select class="form-control w-60" id="category_select" name="category">
+                      <option value="All">All</option>
+                      <option value="plant">Plant, Chromista, Fungi</option>
+                      <option value="animal">Animal</option>
+                    </select>
+                    </div>
+                <button class="btn btn-primary my-2 my-sm-0" type="submit" id="btn_search">Search</button>
+              </form>
+            </div>
+            <hr class="my-7">
+        <div class="container">
+            <p class="lead"><span id="num_results"></span></p>
+            <table class="table table-bordered table-striped">
+    {#                  <caption>description</caption>#}
+                  <thead>
+                    <tr class="text-primary">
+                        <td style="width: 16%"><b>HSD ID</b></td>
+                        <td style="width: 68%"><b>Genes</b></td>
+                      <td style="width: 8%"><b>Number</b></td>
+                        <td style="width: 8%"><b>Download</b></td>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody">
+                  </tbody>
+                </table>
+        <div id="page_content" class="row justify-content-center align-items-center"></div>
+        </div>
+        </section>
+    </main>
+
+
+    <!-- JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) -->
+    <!-- Global Vendor -->
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'jquery.migrate.min.js' %}"></script>
+    <script src="{% static 'popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+
+    <!-- Components Vendor  -->
+    <script src="{% static 'jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'jquery.parallax.js' %}"></script>
+
+    <!-- Theme Settings and Calls -->
+    <script src="{% static 'global.js' %}"></script>
+
+    <!-- Theme Components and Settings -->
+    <script src="{% static 'parallax.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+        let now_page = 1;
+        let total_page = 1;
+        let cat = '';
+        let opt = '';
+        $("#page_form").submit(function (e){
+            e.preventDefault();
+            now_page = 1;
+            cat = $('#category_select option:selected').val();
+            opt = $('#search_HSDid').val();
+            page_click()
+        })
+        $('#page_content').on('click', '#p_page', function (e) {
+            e.preventDefault();
+            now_page -= 1;
+            if (now_page < 1) {
+                now_page = 1;
+                return false
+            } else {
+                page_click()
+            }
+        });
+        $('#page_content').on('click', '#n_page', function (e) {
+            e.preventDefault();
+            now_page += 1;
+            if (now_page > total_page) {
+                now_page -= 1;
+                return false
+            } else {
+                page_click()
+            }
+        });
+        $('#page_content').on('click', '#f_page', function (e) {
+            e.preventDefault();
+            now_page = 1;
+            page_click()
+        });
+        $('#page_content').on('click', '#l_page', function (e) {
+            e.preventDefault();
+            now_page = total_page;
+            page_click()
+        });
+        $('#page_content').on('click', '#now_page', function (e) {
+            e.preventDefault();
+            now_page = parseInt($(this).text());
+            page_click()
+        });
+
+        function page_click() {
+            let page_form = $('#page_form');
+            $.ajax({
+                type: 'POST',
+                url: page_form.attr('action'),
+                dataType:"json",
+                data: {'page_now': now_page,
+                'category': cat,
+                'hsdid': opt,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                success: function (data) {
+                    now_page = data.page_now
+                    total_page = data.page_total
+                    $('#tbody').empty();
+                    $('#num_results').text(data.num + ' result(s) found');
+                    $.each(data.hsds, function (index, hsd) {
+                        var hsd = eval("("+hsd+")")
+                        let body = '<td style="width: 16%"><a href="/database/hsd_detail/' + hsd.h_id + '">' + hsd.name + '</a></td>\n' +
+                            '<td style="width: 68%">' + hsd.genes + '</td>\n' +
+                            '<td style="width: 8%">' + hsd.num + '</td>\n' +
+                            '<td style="width: 8%">\n' +
+                            '<a href="/database/hsd_download/' + hsd.name + '/' + hsd.h_id + '">\n' +
+                            '<i class="fas fa-download u-font-size-90 mr-1" style="color: #59287a"></i>\n' +
+                            '</a></td>';
+                        $('#tbody').append('<tr>' + body + '</tr>');
+                    });
+                    let page_html = '<nav aria-label="Bootstrap Pagination Example">\n' +
+                        '                  <ul class="pagination">';
+                    if (data.page_has_p === true) {
+                        page_html += '<li class="page-item">\n' +
+                            '<a class="page-link" id="f_page" href="">&laquo; First</a>\n' +
+                            '</li><li class="page-item">\n' +
+                            '<a class="page-link" id="p_page" href="" aria-label="Previous">Previous</a>\n</li>';
+                    } else {
+                        page_html += '<li class="page-item disabled">\n' +
+                            '<a class="page-link" id="f_page" href="">&laquo; First</a>\n' +
+                            '</li><li class="page-item disabled">\n' +
+                            '<a class="page-link" id="p_page" href="" aria-label="Previous">Previous</a></li>';
+                    }
+                    $.each(data.page_range, function (index, page_n){
+                        if (page_n === parseInt(data.page_now)){
+                            page_html += '<li id="now_page" class="page-item active"><a class="page-link" href="">' + page_n + '</a></li>';
+                        } else {
+                            page_html += '<li id="now_page" class="page-item"><a class="page-link" href="">' + page_n + '</a></li>';
+                        }
+                    });
+                    if (data.page_has_n === true) {
+                        page_html += '<li class="page-item">\n' +
+                            '<a class="page-link" id="n_page" href="" aria-label="Next">Next</a>\n' +
+                            '</li><li class="page-item">\n' +
+                            '<a class="page-link" id="l_page" href="">Last &raquo;</a></li>';
+                    } else {
+                        page_html += '<li class="page-item disabled">\n' +
+                            '<a class="page-link" id="n_page" href="" aria-label="Next">Next</a>\n' +
+                            '</li><li class="page-item disabled">\n' +
+                            '<a class="page-link" id="l_page" href="">Last &raquo;</a></li>';
+                    }
+                    page_html += '</ul></nav>';
+                    $('#page_content').html(page_html)
+                }
+            })
+        }
+    })
+    </script>
+
+</body>
+</html>

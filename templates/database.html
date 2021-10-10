@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+
+    <!-- Web Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Playfair+Display:400,700%7COpen+Sans:300,400,700" rel="stylesheet">
+
+    <!-- Bootstrap Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+
+    <!-- Components Vendor Styles -->
+    <script src="https://kit.fontawesome.com/020635d014.js" crossorigin="anonymous"></script>
+
+    <!-- Theme Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+    <title>HSDatabase</title>
+</head>
+<body data-spy="scroll" data-target="#bs-example-navbar-collapse-1" data-offset="100">
+    <!-- Header -->
+    <header role="header">
+      <!-- Navbar -->
+{#      <nav class="js-navbar-scroll navbar fixed-top navbar-expand-lg navbar-dark bg-transparent">#}
+          <nav class="js-navbar-scroll navbar fixed-top navbar-expand-lg navbar-transparent navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/database/back/">
+            <img src="{% static 'name.png' %}" alt="" style="width: 135px;">
+          </a>
+
+          <button class="navbar-toggler" type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarTogglerDemo"
+
+                  aria-controls="navbarTogglerDemo"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo">
+
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link active" href="/database/">Home</a>
+              </li>
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/browse/">Browse</a>
+              </li>
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/search/">Search</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/blast/">Blast</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/kegg/">KEGG</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/faq/">Tutorial</a>
+              </li>
+            </ul>
+          </div>
+{#            <a class="btn btn-primary" href="/combiner/">#}
+{#                NoBadWords Combiner#}
+{#            </a>#}
+        </div>
+      </nav>
+      <!-- End Navbar -->
+
+      <!-- Promo Block -->
+      <section class="js-parallax u-promo-block u-promo-block--mheight-600 u-overlay u-overlay--dark text-white" style="background-image: url({% static 'db_bg.png' %});">
+        <!-- Promo Content -->
+        <div class="container u-overlay__inner u-ver-center u-content-space">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <div class="text-center">
+                  <p class="u-letter-spacing-sm mb-0">&nbsp;</p>
+                  <h1 class="display-sm-4 display-lg-3 mb-3">HSDatabase
+{#                    <span class="js-display-typing"></span>#}
+                </h1>
+                <p class="u-letter-spacing-sm mb-0">HSDs has served as a critical database in the eukaryotic genomics, and the database has facilitated the studies associated with the highly similar duplcaites.</p>
+                  <p class="lead">&nbsp;</p>
+                  <a class="btn btn-primary" href="/database/browse/">
+                  Browse <i class="fas fa-arrow-alt-circle-right ml-2"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Promo Content -->
+      </section>
+      <!-- End Promo Block -->
+    </header>
+    <!-- End Header -->
+
+    <main role="main">
+              <section class="u-content-space">
+        <div class="container">
+          <div class="row">
+            <!-- Article Content -->
+{#            <div class="col-lg-5 align-self-center mb-5 mb-lg-0 pr-lg-5">#}
+            <div class="col-lg-12 align-self-center">
+              <header class="mb-5">
+                <h2 class="h1">What's HSDatabase</h2>
+              </header>
+
+              <p class="mb-4">HSDs has served as a critical database in the eukaryotic genomics,
+                  and the database has facilitated the studies associated with the highly similar
+                  duplcaites, such as gene duplicates detections, gene duplicates prediction.
+                  The predictions of HSDs stored in HSDatabse have been supported by a series of
+                  experiments, including those published in New Phytologist, iScience etc..</p>
+            </div>
+            <!-- End Article Content -->
+
+            <!-- Article Image -->
+            <div class="col-lg-12 align-self-center">
+              <img class="img-fluid rounded" src="{% static 'HSDatabase.png' %}" alt="Iamge Description">
+            <hr class="my-7">
+            </div>
+
+            <!-- End Article Image -->
+              <div class="col-lg-12 align-self-center">
+              <header class="mb-5">
+                <h3 class="h3">The predicted HSDs in selected eukaryotic nuclear genomes.</h3>
+              </header>
+            </div>
+              <div class="col-lg-12 align-self-center">
+              <img class="img-fluid rounded" src="{% static 'HSDatabase2.jpg' %}" alt="Iamge Description">
+            </div>
+          </div>
+        </div>
+      </section>
+        <hr>
+        <section class="u-content-space">
+        <div class="container">
+            <div class="col-lg-12 align-self-center">
+            <header class="mb-5">
+                <h2 class="h1">Citation and Useful Links</h2>
+            </header>
+            <div class="panel-body">
+                <p>
+                    <b>Citation</b><br>
+                    <span class="far fa-file-alt" style="color: #59287a"></span> X. Zhang, Yining. Hu, D. Smith (2021). HSDatabase - a database of highly similar duplicate genes in eukaryotic genomes, Database. doi: upcoming<br>
+                    <span class="far fa-file-alt" style="color: #59287a"></span> Xi Zhang, Yining Hu, David Roy Smith. (2021). Protocol for HSDFinder: Identifying, annotating, categorizing, and visualizing duplicated genes in eukaryotic genomes DOI: <a href="https://doi.org/10.1016/j.xpro.2021.100619">https://doi.org/10.1016/j.xpro.2021.100619</a><br>
+                    <span class="far fa-file-alt" style="color: #59287a"></span> X. Zhang, et.al. D. Smith (2021). Draft genome sequence of the Antarctic green alga Chlamydomonas sp. UWO241 DOI:<a href="https://doi.org/10.1016/j.isci.2021.102084">https://doi.org/10.1016/j.isci.2021.102084</a>
+                </p>
+                <p>
+                    <b>Links to the InterProScan and KEGG</b><br>
+                    <span class="fas fa-link" style="color: #59287a"></span> Pfam 34.0 (March 2021, 19179 entries): <a href="https://pfam.xfam.org">https://pfam.xfam.org</a><br>
+                    <span class="fas fa-link" style="color: #59287a"></span> InterPro 86.0 (June 2021, 38,913 entries):<a href="http://www.ebi.ac.uk/interpro/">http://www.ebi.ac.uk/interpro/</a><br>
+                    <span class="fas fa-link" style="color: #59287a"></span> KEGG Orthology Database: <a href="https://www.genome.jp/kegg/ko.html">https://www.genome.jp/kegg/ko.html</a><br>
+                    <span class="fas fa-link" style="color: #59287a"></span> InterProscan: <a href="https://github.com/ebi-pf-team/interproscan">https://github.com/ebi-pf-team/interproscan</a><br>
+                    <span class="fas fa-link" style="color: #59287a"></span> KEGG : <a href="https://www.kegg.jp/kegg/">https://www.kegg.jp/kegg/</a>
+                </p>
+            </div>
+            </div>
+        </div>
+    </section>
+    </main>
+    <div align="center"><script type="text/javascript" src="//rk.revolvermaps.com/0/0/4.js?i=5kxz34di3b4&amp&amp;m=0&amp;h=1&amp;c=ff0000&amp;r=0.5" async="async" ></script></div>
+    <!-- Footer -->
+{#    <footer class="bg-dark py-2">#}
+{#      <div class="container-fluid">#}
+{#          <div class="text-center">#}
+{#            <small class="text-white">&copy; 2020 <a class="text-white" href="">HSDFinder</a>. All Rights Reserved.</small>#}
+{#        </div>#}
+{#      </div>#}
+{#    </footer>#}
+
+
+{#    <!-- Footer -->#}
+{#    <footer class="bg-dark" role="footer">#}
+{#      <div class="container-fluid">#}
+{#        <!-- Copyright and Social Icons -->#}
+{#          <div class="text-center">#}
+{#            <small class="text-white">&copy; 2020 <a class="text-white">HSDFinder</a>. All Rights Reserved.</small>#}
+{#          </div>#}
+{#        <!-- End Copyright and Social Icons -->#}
+{#      </div>#}
+{#    </footer>#}
+    <!-- End Footer -->
+    <!-- JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) -->
+    <!-- Global Vendor -->
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'jquery.migrate.min.js' %}"></script>
+    <script src="{% static 'popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+
+    <!-- Components Vendor  -->
+    <script src="{% static 'jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'jquery.parallax.js' %}"></script>
+
+    <!-- Theme Settings and Calls -->
+    <script src="{% static 'global.js' %}"></script>
+
+    <!-- Theme Components and Settings -->
+    <script src="{% static 'parallax.js' %}"></script>
+
+</body>
+</html>

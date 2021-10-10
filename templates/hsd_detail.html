@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+
+    <!-- Web Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Playfair+Display:400,700%7COpen+Sans:300,400,700" rel="stylesheet">
+
+    <!-- Bootstrap Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+
+    <!-- Components Vendor Styles -->
+    <script src="https://kit.fontawesome.com/020635d014.js" crossorigin="anonymous"></script>
+
+    <!-- Theme Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <style type="text/css">
+        .table tr td{
+            vertical-align: middle;
+            text-align: center;
+        }
+    </style>
+    <title>HSD_{{ hsd }}</title>
+</head>
+<body data-spy="scroll" data-target="#bs-example-navbar-collapse-1" data-offset="100">
+    <!-- Header -->
+    <header role="header">
+      <!-- Navbar -->
+      <nav class="js-navbar-scroll navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/database/">
+           HSDatabase
+          </a>
+
+          <button class="navbar-toggler" type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarTogglerDemo"
+
+                  aria-controls="navbarTogglerDemo"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo">
+
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/">Home</a>
+              </li>
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link active" href="/database/browse/">Browse</a>
+              </li>
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/search/">Search</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/blast/">Blast</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/kegg/">KEGG</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/faq/">Tutorial</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+
+    </header>
+    <!-- End Header -->
+
+    <main role="main">
+        <section class="u-content-space">
+            <div class="container">
+                <header class="w-md-100 mx-auto text-left mb-7">
+                    <h3 class="h2 mb-1"><b>{{ hsd }}</b> [<a href="/database/hsd_download/{{ hsd }}/{{ hsd_id}}" style="text-decoration: underline">Download</a>]</h3>
+                </header>
+                <div>
+                <!-- Left Bordered -->
+                    {% for gene in genes %}
+                        <h3 class="h5 mb-3"><b>Identity: <a href="https://www.ncbi.nlm.nih.gov/protein/{{ gene.name }}/" style="text-decoration: underline">{{ gene.name }}</a></b>
+{#                        <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="popover" title="Sequence" data-content="{{ gene.seq }}">#}
+{#                            Seq</button>#}
+{#                        <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="collapse" data-target="#collapse_{{ gene.id }}" aria-expanded="false" aria-controls="collapse_{{ gene.id }}">#}
+{#                            Seq#}
+{#                        </button>#}
+                        </h3>
+{#                    <p><div id="collapse_{{ gene.id }}" class="collapse card rounded border-primary">#}
+{#                          {{ gene.seq }}#}
+{#                    </div></p>#}
+                <blockquote class="blockquote-v1 blockquote-v1--left">
+                    <div class="row">
+                    <div class="col-md-2">
+                         Length:
+                    </div>
+                    <div class="col-md-10">
+                      {{ gene.length}}
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-2">
+                        PF Identity:
+                    </div>
+                    <div class="col-md-10">
+                      {{ gene.pf_num|safe}}
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-2">
+                        PF Description:
+                    </div>
+                    <div class="col-md-10">
+                      {{ gene.pf_domain }}
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-2">
+                        IPR Identity:
+                    </div>
+                    <div class="col-md-10">
+                      {{ gene.ipr|safe }}
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-2">
+                        IPR Description:
+                    </div>
+                    <div class="col-md-10">
+                      {{ gene.ipr_domain }}
+                    </div>
+                    </div>
+                </blockquote>
+                    {% endfor %}
+                <!-- End Left Bordered -->
+              </div>
+            <div>
+                <ul class="nav nav-tabs nav-justified nav-tabs--v1" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link {% if active_tab == 'Genome' %} active {% endif %}" id="pills-home-tab-1" href='#pills-home-1' data-toggle="pill">Genome Browser</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link {% if active_tab == 'Sequence' %} active {% endif %}" id="pills-home-tab-2" href='#pills-home-2' data-toggle="pill">FASTA Sequence</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link {% if active_tab == 'Alignment' %} active {% endif %}" id="pills-home-tab-3" href='#pills-home-3' data-toggle="pill">Alignments and Identity%</a>
+                </li>
+{#                <li class="nav-item">#}
+{#                  <a class="nav-link {% if active_tab == 'Expression' %} active {% endif %}" id="pills-home-tab-4" href='#pills-home-4' data-toggle="pill">Expression</a>#}
+{#                </li>#}
+              </ul>
+            <div class="tab-content tab-content--v1" id="pills-tabContent">
+                <div class="tab-pane fade {% if active_tab == 'Genome' %} show active {% endif %}" id="pills-home-1" role="tabpanel" aria-labelledby="pills-home-tab-1">
+{#                Genome#}
+{#                <div id="seqviewer" class='SeqViewerApp' data-autoload>#}
+{#                    <a href="?embedded=true&amp;appname=testapp1&amp;id=NC_000001"></a>#}
+{#                </div>#}
+                {% if not have_ncbi == 0 %}
+                    Select a gene from list:<br>
+                    <select onchange="loadSV(event.target.value);">
+                        {% for i in ncbi %}
+                        <option value="{{ i.accession }}&from={{ i.start }}&to={{ i.stop }}&flip={{ i.strand }}">{{ i.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <iframe id="sviframe" src="http://www.ncbi.nlm.nih.gov/projects/sviewer/embedded_iframe.html?iframe=sviframe&id={{ ncbi.0.accession }}&from={{ ncbi.0.start }}&to={{ ncbi.0.stop }}&flip={{ ncbi.0.strand }}&tracks=[key:sequence_track][key:gene_model_track][key:feature_track,subkey:STS]" style="width: 100%; height: 450px; border: 0"></iframe>
+                {% else %}
+                    <p>Graphical viewer not available.</p>
+                {% endif %}
+                </div>
+                <div class="tab-pane fade {% if active_tab == 'Sequence' %} show active {% endif %}" id="pills-home-2" role="tabpanel" aria-labelledby="pills-home-tab-2">
+                    {% for gene in genes %}
+                        <p style="word-break: break-all;"><b>>{{ gene.name }}</b><br>{{ gene.seq }}</p>
+                    {% endfor %}
+                </div>
+            {% csrf_token %}
+                <div class="tab-pane fade {% if active_tab == 'Alignment' %} show active {% endif %}" id="pills-home-3" role="tabpanel" aria-labelledby="pills-home-tab-3">
+{#                <form id="page_form" class="form-horizontal my-2 my-lg-0" action="/database/kegg/show/" method="post" enctype="multipart/form-data">#}
+                    <div class="text-center">
+                    <button class="btn btn-outline-primary" id="alignment_button"> Load Alignments</button>
+                    </div>
+                <div id="alignment">
+{#                    <pre> {{ align|safe }} </pre></div>#}
+{#                </form>#}
+                </div>
+                </div>
+                <div class="tab-pane fade {% if active_tab == 'Expression' %} show active {% endif %}" id="pills-home-4" role="tabpanel" aria-labelledby="pills-home-tab-4">
+                Expression
+                </div>
+            </div>
+            </div>
+            </div>
+        <!-- end container-->
+        </section>
+    </main>
+
+
+    <!-- Footer -->
+{#    <footer class="bg-dark py-2">#}
+{#      <div class="container-fluid">#}
+{#          <div class="text-center">#}
+{#            <small class="text-white">&copy; 2020 <a class="text-white" href="">HSDFinder</a>. All Rights Reserved.</small>#}
+{#        </div>#}
+{#      </div>#}
+{#    </footer>#}
+    <!-- End Footer -->
+    <!-- JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) -->
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'jquery.migrate.min.js' %}"></script>
+    <script src="{% static 'popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+
+    <!-- Components Vendor  -->
+    <script src="{% static 'jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'jquery.parallax.js' %}"></script>
+
+    <!-- Theme Settings and Calls -->
+    <script src="{% static 'global.js' %}"></script>
+
+    <!-- Theme Components and Settings -->
+    <script src="{% static 'parallax.js' %}"></script>
+
+    <script type="text/javascript">
+    $('#alignment_button').click(function (e) {
+        e.preventDefault();
+        let hsd = '{{ hsd_id }}';
+        var csrftoken = jQuery('[name="csrfmiddlewaretoken"]').val();
+        $('#alignment_button').text('Loading...');
+        $('#alignment_button'). attr("disabled", true);
+        jQuery.ajax({
+            type: 'POST',
+            url: '{% url 'HSD_Alignment' %}',
+            dataType: "json",
+            data: {
+                'hsd_id': hsd,
+                csrfmiddlewaretoken: csrftoken,
+            },
+            success: function (data) {
+                let body = data.result;
+                $('#alignment').html('<pre>' + body + '</pre>');
+                $('#alignment_button').hide();
+            },
+            error: function (error_data) {
+                alert(error_data);
+                $('#alignment_button').textContent = 'Load Alignments'
+            }
+        })
+    });
+    </script>
+    <script type=”text/javascript” src="http://www.ncbi.nlm.nih.gov/projects/sviewer/js/sviewer.js" id="autoload"></script>
+    <script language="JavaScript">
+        function loadSV(id){
+            document.getElementById('sviframe').src = "http://www.ncbi.nlm.nih.gov/projects/sviewer/embedded_iframe.html?iframe=sviframe&id="+id+"&tracks=[key:sequence_track][key:gene_model_track][key:feature_track,subkey:STS]"
+        }
+    </script>
+
+</body>
+</html>

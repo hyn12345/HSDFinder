@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+
+    <!-- Web Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Playfair+Display:400,700%7COpen+Sans:300,400,700" rel="stylesheet">
+
+    <!-- Bootstrap Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+
+    <!-- Components Vendor Styles -->
+    <script src="https://kit.fontawesome.com/020635d014.js" crossorigin="anonymous"></script>
+
+    <!-- Theme Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <title>HSDFinder</title>
+        <!-- Demo Custome Code (demo page only) -->
+    <style type="text/css">
+      /* Button Spaces*/
+      .demo-btn-space .btn,
+      .demo-progress-space .progress {
+        margin-bottom: 10px;
+      }
+
+      /* About Section */
+      .demo-about-section {
+        position: relative;
+        padding-top: 6.25rem;
+      }
+
+      @media (min-width: 991px) {
+        .demo-about-section {
+          margin-top: -50px;
+          padding-top: 0;
+        }
+      }
+
+      /* Download Section */
+      .demo-download-section {
+        position: relative;
+        z-index: 1;
+        margin: -60px 0;
+      }
+
+      /* Google Fonts */
+      .demo-fonts-box {
+        padding: 30px;
+        line-height: 2;
+        letter-spacing: 2px;
+      }
+
+      .demo-fonts-box__item {
+        line-height: 1;
+      }
+      .demo-fonts-box__item-xs {
+        line-height: 1;
+        font-size: 30px;
+      }
+      .demo-fonts-box__item-xl {
+        line-height: 1;
+        font-size: 90px;
+      }
+    </style>
+    <!-- End Demo Custome Code (demo page only) -->
+</head>
+<body id="js-home" data-spy="scroll" data-target="#navbarTogglerDemo" data-offset="100" onscroll=SetCookie("scroll",document.documentElement.scrollTop); onload="scrollback();">
+    <!-- Header -->
+    <header role="header">
+      <!-- Navbar -->
+      <nav class="js-navbar-scroll navbar fixed-top navbar-expand-lg navbar-transparent navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">
+            <img src="{% static 'name.png' %}" alt="Stream UI Kit" style="width: 135px;">
+          </a>
+
+          <button class="navbar-toggler" type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarTogglerDemo"
+
+                  aria-controls="navbarTogglerDemo"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a href="#js-scroll-to-run" class="nav-link">
+                  <i class="fas fa-cubes u-font-size-90 mr-1"></i>
+                    Run HSDFinder
+                </a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="#js-scroll-to-heatmap">
+                  <i class="fas fa-chart-area u-font-size-90 mr-1"></i>
+                    Visualization
+                </a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="#js-scroll-to-reference">
+                  <i class="fas fa-book u-font-size-90 mr-1"></i> Tutorial
+                </a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="#js-scroll-to-contact">
+                  <i class="fas fa-envelope u-font-size-90 mr-1"></i> Cite
+                </a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="#js-scroll-to-download">
+                  <i class="fas fa-download u-font-size-90 mr-1"></i> Download
+                </a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+{#                <a class="nav-link" href="/combiner/">#}
+                <a class="nav-link" href="#js-scroll-to-faq">
+                  <i class="fas fa-question-circle u-font-size-90 mr-1"></i> FAQs
+                </a>
+              </li>
+            </ul>
+          </div>
+{#            <a class="btn btn-primary" href="/database/">#}
+{#                <i class="fas fa-cube u-font-size-90 mr-1"></i> HSDatabase#}
+{#            </a>#}
+        </div>
+      </nav>
+      <!-- End Navbar -->
+
+      <!-- Promo Block -->
+      <section class="js-parallax u-promo-block back">
+        <!-- Promo Content -->
+        <div class="container text-white u-ver-center u-content-space">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <div class="text-center">
+                <h1 class="display-2 display-md-1 u-font-accent font-weight-light">HSDFinder</h1>
+                  <p class="h6 u-letter-spacing-sm mb-0"><br>HSDFinder: an integrated tool for predicting highly similar duplicates (HSDs) in eukaryotic genomes.<br>
+                      HSDFinder aims to become a useful platform for the identification
+                and analysis of HSDs in the eukaryotic genomes, which deepen our insights into the gene
+                duplication mechanisms driving the genome adaptation.<br><br>
+                  </p>
+                  <span class="fa fa-angle-double-down d-block"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- End Promo Content -->
+      </section>
+      <!-- End Promo Block -->
+    </header>
+    <!-- End Header -->
+
+    <main role="main">
+        <!-- Run Section -->
+        <section id="js-scroll-to-run" class="u-content-space">
+            <div class="container">
+              <header class="w-md-50 mx-auto text-center mb-7">
+                <h2 class="h1 font-weight-light mb-1 text-primary">Run HSDFinder</h2>
+                <p></p>
+              </header>
+                <form action="/submit/" method="post" id="run_form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card">
+                    <div class="card-header">
+                    <h3 class="h6 mb-0">Run</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-center"><h3 class="h6 mb-0"><b>Text Input</b></h3></div>
+                        <div class="row justify-content-center">
+                            <p>Two spreadsheets in tab-separated values (tsv) format shall be prepared as input files.</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-5">
+                            <small class="form-text text-muted">
+                                The first spreadsheet is from a protein BLAST search of the genome genes against themselves (E-value cut-off 10-5, BLASTp output format 6).
+                            </small>
+                            <textarea style="overflow:scroll;" name="up_text" cols="45" rows="12" id="text_area_1"></textarea>
+                            </div>
+                            <div class="col-2 text-center align-self-center">
+                            <p class="help-block"><b>See File Examples</b><br>
+                            <a href="javascript:fill1()">File 1</a><br>
+                            <a href="javascript:fill2()">File 2</a></p>
+                            </div>
+                            <div class="col-5">
+                            <small class="form-text text-muted">
+                                The second spreadsheet is acquired from InterProScan which is an automatically software providing the protein signatures such as Pfam domain.
+                            </small>
+                            <textarea style="overflow:scroll;" name="up_text_pfam" cols="45" rows="12" id="text_area_2"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5">
+                                <hr class="my-4">
+                            </div>
+                            <div class="col-2 align-self-center text-center"><h3 class="h6 mb-0"><b>Or Upload</b></h3></div>
+                            <div class="col-5">
+                                <hr class="my-4">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5">
+                                <p class="help-block"><b>File1</b> (tsv.)<br>
+                                    <small class="form-text text-muted">The BLAST results should be 12-column spreadsheets including the key information from query name to percentage identity etc.(see more at web <a href="#js-scroll-to-faq">FAQ</a>)</small>
+                                </p>
+                                <p><input type="file" id="up_file" name="up_file"></p>
+                            </div>
+                            <div class="col-2"></div>
+                            <div class="col-5">
+                                <p class="help-block"><b>File2</b> (tsv.)<br><small class="form-text text-muted">The output file of InterProsScan is tab-separated values (tsv) format in default.</small></p>
+                                <p><input type="file" id="up_file_PFAM" name="up_file_PFAM"></p>
+                            </div>
+                        </div>
+                        <hr class="my-7">
+                        <div class="row">
+                            <div class="col-5">
+                                <p class="form-inline"><label class="help-block w-60" for="dropdown"> Amino acid pairwise identities:</label>
+                                <select class="form-control w-30" name="filter" id="filter">
+                                    <option value="0">100%</option>
+                                    <option selected="selected" value="1">90%</option>
+                                    <option value="2">80%</option>
+                                    <option value="3">70%</option>
+                                    <option value="4">60%</option>
+                                    <option value="5">50%</option>
+                                    <option value="6">40%</option>
+                                    <option value="7">30%</option>
+                                </select>
+                                &nbsp;&nbsp;<i class="fas fa-question-circle u-font-size-90 mr-1" style="color: #59287a;" data-toggle="popover" data-placement="right" data-content="Filter the duplicates ≥##% amino acid pairwise identities."></i>
+                                </p>
+                                <p class="form-inline"><label class="help-block w-60" for="dropdown"> Amino acid length variance (aa):</label>
+                                <select class="form-control w-30" name="length" id="length">
+                                    <option selected="selected" value="0">10</option>
+                                    <option value="1">20</option>
+                                    <option value="2">30</option>
+                                    <option value="3">40</option>
+                                    <option value="4">50</option>
+                                    <option value="5">60</option>
+                                    <option value="6">70</option>
+                                    <option value="7">80</option>
+                                    <option value="8">90</option>
+                                    <option value="9">100</option>
+                                </select>
+                                &nbsp;&nbsp;<i class="fas fa-question-circle u-font-size-90 mr-1" style="color: #59287a;" data-toggle="popover" data-placement="right" data-content="Filter the duplicates with deduced amino acid lengths within ## aa of each."></i>
+                                </p>
+                            </div>
+                            <div class="col-2">
+                            </div>
+                            <div class="col-5">
+                                <p class="form-inline"><label class="help-block w-60" for="dropdown"> Protein function databases:</label>
+                                <select class="form-control w-30" name="dropdown" id="dropdown">
+                                    <option selected="selected" id="Pfam">Pfam</option>
+                                    <option id="CDD">CDD</option>
+                                    <option id="Hamap">Hamap</option>
+                                    <option id="PRINTS">PRINTS</option>
+                                    <option id="ProDom">ProDom</option>
+                                    <option id="ProSitePatterns">ProSitePatterns</option>
+                                    <option id="ProSiteProfiles">ProSiteProfiles</option>
+                                    <option id="SFLD">SFLD</option>
+                                    <option id="TIGRFAM">TIGRFAM</option>
+                                </select>
+                                &nbsp;&nbsp;<i class="fas fa-question-circle u-font-size-90 mr-1" style="color: #59287a;" data-toggle="popover" data-placement="right" data-content="Select protein function databases (e.g., PFAM ). The Pfam domain identifier as well as IPR identifier provide more details about the function of each HSDs. InterProScan (v4.7), which integrates predictive information about protein function from a number of partner resources, such as the InterPro and Pfam databases."></i>
+                                </p>
+                            </div>
+                        </div>
+                        <hr class="my-7">
+                        <div class="row justify-content-center">
+                        <button type="submit" id="submit_button" class="btn btn-primary my-2 my-sm-0">Submit</button>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+                <br><br>
+                <div id="run_div"></div>
+            </div>
+            <div class="modal" id="loading_run" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                <div class="modal-body text-center">
+                    <i class="fas fa-spinner text-primary" style="font-size: 50px"></i><br>
+                    <p></p>
+                    <p class="text-primary">Running HSDFinder...Please do not refresh this page...</p>
+                </div>
+                </div>
+                </div>
+            </div>
+        </section>
+    <hr>
+    <!-- Heatmap Section -->
+    <section id="js-scroll-to-heatmap" class="u-content-space">
+        <div class="container">
+          <header class="w-md-75 mx-auto text-center mb-7">
+            <h2 class="h1 font-weight-light mb-1 text-primary">Visualization</h2>
+            <p>To comparative analyze the HSDs across different species, we developed an online heat map plotting option to visualize the HSDs results in different KEGG pathway category. </p>
+          </header>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="h6 mb-0"><b>Create Heatmap</b>&nbsp;<strong><a href="/example/download/Hands-on_protocol_to_create_heatmap.pdf/" style="text-decoration: underline">[Download Hands-on protocol to create heatmap.pdf]</a></strong></h3>
+                </div>
+                <div class="card-body">
+                    <form id="heatmap_form" action="/heatmap/" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div id="rule1" class="row border-primary">
+                        <div class="col-4">
+                            <p class="help-block">HSD File&nbsp;&nbsp;<i class="fas fa-question-circle u-font-size-90 mr-1" style="color: #59287a;" data-toggle="popover" data-placement="right" data-content="First input file is the HSD outputs (tsv format) of your species acquired via running from the former step."></i>
+                                <br> <a href="/example/download/HSD_File_example.txt/">HSD_File_example.txt</a>
+                            </p>
+                            <p><input type="file" name="hsd_file"></p>
+                        </div>
+                        <div class="col-4">
+                            <p class="help-block">Gene list with KO annotation&nbsp;&nbsp;<i class="fas fa-question-circle u-font-size-90 mr-1" style="color: #59287a;" data-toggle="popover" data-placement="right" data-content="The second input file is retrieved from the KEGG database documented the correlation of KO accession with each gene model identifier."></i>
+                                <br><a href="/example/download/Genelist_KO_annotation_example.txt/">Genelist_KO_annotation_example.txt</a>
+                            </p>
+                            <p><input type="file" name="ko_file"></p>
+                        </div>
+                        <div class="col-4">
+                            <p class="help-block">Organism name&nbsp;&nbsp;<i class="fas fa-question-circle u-font-size-90 mr-1" style="color: #59287a;" data-toggle="popover" data-placement="right" data-content="Think of a unique identifier for your interest species."></i></p>
+                            <p><input size="30" type="text" name="organism_name" placeholder="e.g., Chlamydomonas sp. UWO241"></p>
+                        </div>
+                    </div>
+                    <a class="add-rule btn btn-outline-primary"> + add species</a><br><br>
+                    <a href="/example/download/Heatmap_Test_data.zip" style="text-decoration: underline">See More Example Files Here</a>
+                    <hr class="my-7">
+                    <div class="form-group form-inline row justify-content-center">
+                    <div class="align-self-center"><b>Figure Size:&nbsp;&nbsp;</b></div>
+                    <label class="u-font-size-90" for="row">row&nbsp;</label>
+                    <input type="text" class="form-control" style="width: 50px" name="input_row" id="row" value="10">
+                    <label class="u-font-size-90" for="col">&nbsp;col&nbsp;</label>
+                    <input type="text" class="form-control" style="width: 50px" name="input_col" id="col" value="15">
+                    </div>
+                    <div class="row justify-content-center">
+                    <button id="heatmap_button"  class="btn btn-primary my-2 my-sm-0" type="submit">Create Heatmap</button>
+                    </div>
+                    <p></p><p>Once the input files have been submitted, the HSDs numbers for each species will be displayed in a heatmap under different KEGG function category. On the left side, the color bar indicates a broad category of HSDs who have pathway function matches, such as carbohydrate metabolism, energy metabolism, translation etc. The color for the matrix indicates the number of HSDs across species.</p>
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal" id="loading" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                <div class="modal-body text-center">
+                    <i class="fas fa-spinner text-primary" style="font-size: 50px"></i><br>
+                    <p></p>
+                    <p class="text-primary">Generating heatmap...This may take several minutes...</p>
+                </div>
+                </div>
+                </div>
+            </div>
+
+{#            <div id="loading" class="row justify-content-center" style="display: none">#}
+{#                <p></p>#}
+{#                <i class="fas fa-spinner text-primary">Generating heatmap...This may take several minutes...</i>#}
+{#            </div>#}
+            <div id="img_div"></div>
+            <div id="path_div"></div>
+            <div id="error_div"></div>
+        </div>
+    </section>
+
+    <hr>
+    <section class="u-content-space" id ='js-scroll-to-new'>
+        <div class="container">
+            <header class="w-md-50 mx-auto text-center mb-7">
+            <h2 class="h1 font-weight-light mb-1 text-primary">What's new</h2>
+            </header>
+            <div class="panel-body">
+                <p class="lead">
+                    <span class="fas fa-dna" style="color: #59287a;"></span> Aug. 5th, 2020: Updated to version 1.5.<br>
+                    The result of the predicted HSDs is displayed in a spreadsheet, which offers an alternative way to browse the result in graphical and tabular form.
+                    The software presented here is the primary selection of HSDs, the manually curation should be done to filter the partial and pseudogenes.
+                </p>
+                <p class="lead">
+                    <span class="fas fa-dna" style="color: #59287a;"></span> Aug. 1st, 2020: Updated to version 1.0.<br>
+                    The web server is able to analyze the unannotated genome sequences by integrating the results from InterProScan (e.g., Pfam) and KEGG.
+                </p>
+            </div>
+    <hr class="my-7">
+            <header class="w-md-50 mx-auto text-center mb-7">
+            <h2 class="h1 font-weight-light mb-1 text-primary">What's HSDatabase</h2>
+            </header>
+            <div class="panel-body">
+                <p class="lead">
+                    HSDs has served as a critical database in the eukaryotic genomics, and the database has facilitated the studies associated with the highly similar duplcaites,
+                    such as gene duplicates detections, gene duplicates prediction. The predictions of HSDs stored in HSDatabse have been supported by a series of experiments,
+                    including those published in New Phytologist, iScience etc.. The current version is available at <a href="https://github.com/zx0223winner/HSDatabse">HSDatabse</a>
+                </p>
+            </div>
+        </div>
+    </section>
+    <hr>
+    <section class="u-content-space bg-light" id="js-scroll-to-reference">
+        <div class="container">
+            <header class="w-md-50 mx-auto text-center mb-7">
+            <h2 class="h1 font-weight-light mb-1 text-primary">Tutorial</h2>
+            </header>
+            <div class="row mb-4">
+                    <div class="col-lg-12 mb-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="h6 mb-0">Workflow of HSDFinder (8 steps)&nbsp;<strong><a href="/example/download/Tutorial_hsdfinder.pdf/" style="text-decoration: underline">[Download Tutorial for HSDFinder.pdf]</a></strong></h3>
+                            </div>
+                            <div class="card-body align-self-center">
+                                <p class="lead">
+                                    <strong>HSDFinder Online server Tutorial: Identification of highly similar duplicates in eukaryotic genomes.</strong>
+                                </p><p>
+                                    1. Upload a protein BLAST search result file of your genome in tab-separated values (tsv) format as the first input file (File 1) of HSDFinder.
+                                    <br>2. Upload a InterProScan search result file of your genome in tab-separated values (tsv) format as the second input file (File 2) of HSDFinder.
+                                    <br>3. Yielding the output of HSDFinder with three personalized options.
+                                    <br>4. Visualizing the HSDFinder outputs via the Excel tools (optional).
+                                    <br>5. Upload the results of HSDFinder from your respective genomes.
+                                    <br>6. Upload a gene list with KO annotation from KEGG database.
+                                    <br>7. The output files of the online Heatmap Visualization tool.
+                                    <br>8. The heatmap of HSDs levels across species.
+                                </p>
+                                <img class="img-fluid rounded" src="{% static 'HSDFinder.png' %}">
+                                <div>
+                                <hr class="my-7">
+                                {% load embed_video_tags %}
+                                <p class="lead">
+                                    <br>
+                                    <strong>Webinars: Using Bioinformatics Tools to Predict, Collect and Visualize the Highly Similar Duplicates in Eukaryotic Genomes</strong>
+                                </p>
+                                {% video head_video.video 'small' %}
+                                <p class="lead">
+                                    <br><br>
+                                    <strong>HSDFinder </strong>- an integrated tool to predict highly similar duplicates (HSDs) in eukaryotic genomes. (<a href="http://hsdfinder.com">http://hsdfinder.com</a>)
+                                </p><p>
+                                    &emsp;Series 1: How to run HSDFinder?
+                                    <br>&emsp;Series 2: How to visualize HSDs in HSDFinder?
+                                    <br>&emsp;Series 3: How to run HSDFinder locally by downloading from GitHub?
+                                </p>
+                                    {% for item in videos %}
+                                        {% video item.video '350x261' %}
+                                    {% endfor %}
+                                <p class="lead"><br>
+                                    <strong>HSDatabase </strong>- a database of highly similar duplicate genes in eukaryotic genomes. (<a href="http://hsdfinder.com/database/">http://hsdfinder.com/database/</a>)
+                                </p><p>
+                                    &emsp;Series 4: How to use the HSDatabase - browse and search?
+                                    <br>&emsp;Series 5: How to use the HSDatabase - BLAST and KEGG?
+                                </p>
+                                    {% for i in videos_db %}
+                                        {% video i.video '350x261' %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </section>
+    <hr>
+{#    <section class="u-content-space" id="js-scroll-to-contact">#}
+{#        <div class="container">#}
+{#            <header class="w-md-50 mx-auto text-center mb-7">#}
+{#            <h2 class="h1 font-weight-light mb-1 text-primary">Who to contact</h2>#}
+{#            </header>#}
+{#            <p class="lead">#}
+{#                For comments and questions, send a message to Xi Zhang (xzha25@uwo.ca).<br>#}
+{#                Usage of this site follows AWS’s Privacy Policy.#}
+{#            </p>#}
+{#        </div>#}
+{#    </section>#}
+{#    <hr>#}
+    <section class="u-content-space" id="js-scroll-to-contact">
+        <div class="container">
+            <header class="w-md-50 mx-auto text-center mb-7">
+            <h2 class="h1 font-weight-light mb-1 text-primary">How to cite</h2>
+            </header>
+            <p class="lead">
+                Xi Zhang, Yining Hu, David Roy Smith. (2021). Protocol for HSDFinder: Identifying, annotating, categorizing, and visualizing duplicated genes in eukaryotic genomes. STAR Protocols. <a href="https://doi.org/10.1016/j.xpro.2021.100619" style="text-decoration: underline">DOI:https://doi.org/10.1016/j.xpro.2021.100619</a>
+                <br>
+                Xi Zhang, Marina Cvetkovska, Rachael Morgan-Kiss, Norman P. A. Hüner, David Roy Smith, (2021). Draft genome sequence of the Antarctic green alga Chlamydomonas sp. UWO241. iScience. <a href="https://doi.org/10.1016/j.isci.2021.102084" style="text-decoration: underline">https://doi.org/10.1016/j.isci.2021.102084</a>
+            </p>
+        </div>
+    </section>
+    <hr>
+    <section class="u-content-space bg-light" id="js-scroll-to-download">
+        <div class="container">
+            <header class="w-md-50 mx-auto text-center mb-7">
+            <h2 class="h1 font-weight-light mb-1 text-primary">Where to download</h2>
+            </header>
+            <div class="panel-body">
+                <p class="lead">The distribution version of HSDFinder is also available.<br>
+                <span class="fas fa-download" style="color: #59287a"></span> Current version: v1 (5 August 2020) [<a href="https://github.com/zx0223winner/HSDFinder">download</a>].
+                </p>
+                <p class="lead">
+                    <b>Links to the InterProScan and KEGG</b><br>
+                    <span class="fas fa-link" style="color: #59287a"></span> InterProscan: <a href="https://github.com/ebi-pf-team/interproscan">https://github.com/ebi-pf-team/interproscan</a><br>
+                    <span class="fas fa-link" style="color: #59287a"></span> KEGG : <a href="https://www.kegg.jp/kegg/">https://www.kegg.jp/kegg/</a>
+                </p>
+            </div>
+        </div>
+    </section>
+    <hr class="my-7">
+    <section class="u-content-space" id="js-scroll-to-faq">
+            <div class="container">
+            <header class="w-md-75 mx-auto text-center mb-7">
+            <h2 class="h1 font-weight-light mb-1 text-primary">Frequently Asked Questions (FAQs)</h2>
+            </header>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                {% for item in faqs %}
+              <p><div class="card">
+                <div class="card-header" role="tab" id="heading_{{ item.id }}">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{ item.id }}" aria-expanded="true" aria-controls="collapseOne">
+                      {{ item.question }}
+                    </a>
+                </div>
+                <div id="collapse_{{ item.id }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading_{{ item.id }}">
+                  <div class="card-body">
+                    {{ item.answer|safe }}
+                  </div>
+                </div>
+              </div></p>
+                    {% endfor %}
+{#            <script type="text/javascript" src="//rf.revolvermaps.com/0/0/3.js?i=5u41yt24wck&amp;b=0&amp;s=40&amp;m=2&amp;cl=ffffff&amp;co=010020&amp;cd=aa0000&amp;v0=60&amp;v1=60&amp;r=1" async="async"></script>#}
+            <div style="width: 200px;height: 20px;position: absolute;left: 150px;top: 100px;z-index:-1;color: white;"><script type="text/javascript" src="//rf.revolvermaps.com/0/0/9.js?i=5u41yt24wck" async="async"></script>
+            </div>
+            <hr class="my-7">
+            </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+{#    <footer class="bg-dark py-2" role="footer">#}
+{#      <div class="container-fluid">#}
+{#        <!-- Copyright and Social Icons -->#}
+{#          <div class="text-center">#}
+{#            <small class="text-white">&copy; 2020 <a class="text-white">HSDFinder</a>. All Rights Reserved.</small>#}
+{#          </div>#}
+{#        <!-- End Copyright and Social Icons -->#}
+{#      </div>#}
+{#    </footer>#}
+    <!-- End Footer -->
+
+    <!-- JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) -->
+    <!-- Global Vendor -->
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'jquery.migrate.min.js' %}"></script>
+    <script src="{% static 'popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+
+    <!-- Components Vendor  -->
+    <script src="{% static 'jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'jquery.parallax.js' %}"></script>
+
+    <!-- Theme Settings and Calls -->
+    <script src="{% static 'global.js' %}"></script>
+
+    <!-- Theme Components and Settings -->
+    <script src="{% static 'parallax.js' %}"></script>
+    <script type="text/javascript">
+        let text1 = "g735.t1\tg735.t1\t100.000\t744\t0\t0\t1\t744\t1\t744\t0.0\t1375\n" +
+            "g735.t1\tg741.t1\t96.237\t744\t28\t0\t1\t744\t1\t744\t0.0\t1219\n" +
+            "g735.t1\tg8053.t1\t90.196\t51\t3\t2\t6\t55\t3\t52\t7.50e-13\t65.8\n" +
+            "g735.t1\tg7171.t1\t77.632\t608\t121\t13\t144\t740\t147\t750\t3.98e-100\t355\n" +
+            "g735.t1\tg11305.t1\t97.500\t40\t1\t0\t17\t56\t14\t53\t5.80e-14\t69.4\n" +
+            "g741.t1\tg741.t1\t100.000\t744\t0\t0\t1\t744\t1\t744\t0.0\t1375\n" +
+            "g8053.t1\tg8053.t1\t100.000\t747\t0\t0\t1\t747\t1\t747\t0.0\t1380\n" +
+            "g7171.t1\tg7171.t1\t100.000\t750\t0\t0\t1\t750\t1\t750\t0.0\t1386\n" +
+            "g11305.t1\tg11305.t1\t100.000\t1059\t0\t0\t1\t1059\t1\t1059\t0.0\t1956";
+        let text2 = "g735.t1\tc82510c09b797ecced03c40f4da02ffb\t247\tPfam\tPF11999\tProtein of unknown function (DUF3494)\t57\t241\t2.2E-47\tT\t15-11-2019\tIPR021884\tIce-binding protein-like\n" +
+            "g735.t1\tc82510c09b797ecced03c40f4da02ffb\t247\tProSiteProfiles\tPS51257\tProkaryotic membrane lipoprotein lipid attachment site profile.\t1\t19\t5.0\tT\t15-11-2019\n" +
+            "g741.t1\t8cf52deba53cb877fbd0af222ed48ce3\t247\tProSiteProfiles\tPS51257\tProkaryotic membrane lipoprotein lipid attachment site profile.\t1\t19\t5.0\tT\t15-11-2019\n" +
+            "g741.t1\t8cf52deba53cb877fbd0af222ed48ce3\t247\tPfam\tPF11999\tProtein of unknown function (DUF3494)\t57\t241\t7.8E-47\tT\t15-11-2019\tIPR021884\tIce-binding protein-like\n" +
+            "g8053.t1\t3d70a0c7f160037bf79f409bd805d577\t248\tPfam\tPF11999\tProtein of unknown function (DUF3494)\t58\t244\t2.5E-47\tT\t15-11-2019\tIPR021884\tIce-binding protein-like\n" +
+            "g7171.t1\t9455b619e60679693d39c8191c410d18\t249\tPfam\tPF11999\tProtein of unknown function (DUF3494)\t58\t244\t8.0E-47\tT\t15-11-2019\tIPR021884\tIce-binding protein-like\n" +
+            "g11305.t1\t299faccc0b8751e2919a8a332d5e123f\t352\tPfam\tPF11999\tProtein of unknown function (DUF3494)\t157\t348\t7.8E-55\tT\t15-11-2019\tIPR021884\tIce-binding protein-like\n";
+        var fill1=function () {
+            document.getElementById('text_area_1').value=text1
+        }
+        var fill2=function () {
+            document.getElementById('text_area_2').value=text2
+        }
+
+
+        $(function () {
+            var numadd = 1;
+            $(".add-rule").on("click",function(){
+                numadd++;
+                var ruleBoxId = "rule"+numadd;
+                var ruleBox = '<div id="'+ ruleBoxId +'" class="row order-primary">\n' +
+                    '<div class="col-4">\n' +
+                    '<p class="help-block">HSD File</p>\n' +
+                    '<p><input type="file" name="hsd_file"></p>\n' +
+                    '</div>\n' +
+                    '<div class="col-4">\n' +
+                    '<p class="help-block">Gene list with KO annotation</p>\n' +
+                    '<p><input type="file" name="ko_file"></p>\n' +
+                    '</div>\n' +
+                    '<div class="col-4">\n' +
+                    '<p class="help-block">Organism name</p>\n' +
+                    '<p><input type="text" size="30" name="organism_name"></p>\n' +
+                    '</div>\n' +
+                    '</div>';
+
+            $(".add-rule").before(ruleBox);
+            if (numadd>6){
+                $(".add-rule").hide()
+            }
+            });
+        });
+
+        $(function () {
+          $('[data-toggle="popover"]').popover({html:true})
+        })
+
+        $("#run_form").submit(function (e){
+            e.preventDefault();
+            $('#loading_run').modal({backdrop:"static", keyboard:false});
+            $('#submit_button').attr("disabled", true);
+            let run_form = $('#run_form');
+            var up_file = $("#up_file").get(0).files[0];
+            var up_file_PFAM = $("#up_file_PFAM").get(0).files[0];
+            var up_text = $("#text_area_1").val();
+            var up_text_pfam = $("#text_area_2").val();
+            var dropdown = $('#dropdown option:selected').text();
+            var length = $('#length option:selected').text();
+            var filter = $('#filter option:selected').text();
+
+            var data = new FormData();
+            data.append("up_file",up_file)
+            data.append("up_file_PFAM",up_file_PFAM)
+            data.append("up_text",up_text)
+            data.append("up_text_pfam",up_text_pfam)
+            data.append("dropdown",dropdown)
+            data.append("length",length)
+            data.append("filter",filter)
+            data.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+            $.ajax({
+                type: 'POST',
+                url: run_form.attr('action'),
+                dataType:"json",
+                data: data,
+                cache: false,
+                processData:false,
+                contentType:false,
+                success: function (data) {
+                    $("#run_div").empty();
+                    $('#loading_run').modal('hide');
+                    $('#submit_button').attr("disabled", false);
+                    if (data.filename){
+                        var html2 = '<table width="100%" border="0" cellpadding="4" align="left" style="table-layout:fixed; word-wrap: break-word;">\n' +
+                            '<tr><td> <b>Output: </b> </td></tr><tr><td><blockquote class="blockquote-v1">\n' +
+                            '<a href="/download/' + data.filename + '/" >' + data.filename + '</a></blockquote></td></tr></table>';
+                        $("#run_div").append(html2);
+                    }else if (data.output_text){
+                        var html1 = '<table width="100%" border="0" cellpadding="4" align="left" style="table-layout:fixed; word-wrap: break-word;">\n' +
+                            '<tr><td> <b>Output: </b> </td></tr>\n' +
+                            '<tr><td><blockquote class="blockquote-v1"><p>' + data.output_text + '</p></blockquote></td></tr></table>';
+                        $("#run_div").append(html1);
+                    }else if (data.error){
+                        var html3 = '<div class="alert alert-danger" role="alert">\n' +
+                            '<span class="sr-only">Error:</span>' + data.error + '</div>';
+                        $("#run_div").append(html3);
+                    }
+                }
+            });
+        });
+
+        $("#heatmap_form").submit(function (e){
+            e.preventDefault();
+            var data = new FormData($('#heatmap_form')[0]);
+            $('#loading').modal({backdrop:"static", keyboard:false});
+            $('#heatmap_button').attr("disabled", true);
+            $.ajax({
+                type: 'POST',
+                url: $("#heatmap_form").attr('action'),
+                dataType:"json",
+                data: data,
+                cache: false,
+                processData:false,
+                contentType:false,
+                success: function (data) {
+                    $("#error_div").empty();
+                    $("#img_div").empty();
+                    $("#path_div").empty();
+                    $('#loading').modal('hide');
+                    $('#heatmap_button').attr("disabled", false);
+                    if (data.error_heatmap){
+                        var html3 = '<div class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-exclamation-sign"></span>\n' +
+                            '<span class="sr-only">Error:</span>' + data.error_heatmap + '</div>';
+                        $("#error_div").html(html3);
+                    } else {
+                        if (data.img){
+                            var html1 = '<p><img src="' + data.img + '"></p>';
+                            $("#img_div").html(html1);
+                        }
+                        if (data.path || data.file_path){
+                            var html2 = "<p><b>Download:&nbsp;&nbsp;</b>";
+                            if (data.path){
+                                html2 += '<a href="/download/' + data.path + '/" >' + data.path + '</a><br>';
+                            }
+                            if (data.file_path){
+                                html2 += '<a href="/download/' + data.file_path + '/" >' + data.file_path + '</a>';
+                            }
+                            html2 += '<\p>';
+                            $("#path_div").html(html2);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+
+    <!-- Web Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Playfair+Display:400,700%7COpen+Sans:300,400,700" rel="stylesheet">
+
+    <!-- Bootstrap Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+
+    <!-- Components Vendor Styles -->
+    <script src="https://kit.fontawesome.com/020635d014.js" crossorigin="anonymous"></script>
+
+    <!-- Theme Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+    <title>KEGG</title>
+</head>
+<body data-spy="scroll" data-target="#bs-example-navbar-collapse-1" data-offset="100">
+    <!-- Header -->
+    <header role="header">
+      <!-- Navbar -->
+      <nav class="js-navbar-scroll navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/database/">
+            HSDatabase
+          </a>
+
+          <button class="navbar-toggler" type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarTogglerDemo"
+
+                  aria-controls="navbarTogglerDemo"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo">
+
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/">Home</a>
+              </li>
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/browse/">Browse</a>
+              </li>
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/search/">Search</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/blast/">Blast</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link active" href="/database/kegg/">KEGG</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/faq/">Tutorial</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+    </header>
+    <!-- End Header -->
+
+    <main role="main">
+        <section class="u-content-space">
+            <div class="container">
+                <ul class="nav nav-tabs nav-justified nav-tabs--v1" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link {% if active_tab == 'kegg' %} active {% endif %}" id="pills-home-tab-1" href='#pills-home-1' data-toggle="pill">KEGG</a>
+                </li>
+{#                <li class="nav-item">#}
+{#                  <a class="nav-link {% if active_tab == 'heatmap' %} active {% endif %}" id="pills-profile-tab-1" href='#pills-profile-1' data-toggle="pill">Heatmap</a>#}
+{#                </li>#}
+              </ul>
+                <div class="tab-content tab-content--v1" id="pills-tabContent">
+                <div class="tab-pane fade {% if active_tab == 'kegg' %} show active {% endif %}" id="pills-home-1" role="tabpanel" aria-labelledby="pills-home-tab-1">
+                    <form id="page_form" class="form-horizontal my-2 my-lg-0" action="/database/kegg/show/" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <table width="100%" cellpadding="15" border="0">
+                    <tr>
+                    <td style="width: 25%; text-align: right; vertical-align: center;">
+                        <p><b>Organism</b></p>
+                    </td>
+                    <td style="width: 50%; text-align: left; vertical-align: center;">
+                        <select class="form-control w-75" id="organism" name="species">
+                        <option id=""></option>
+                            {% for s in species %}
+                            <option id="{{ s }}">{{ s }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td style="width: 25%; text-align: left; vertical-align: center;">
+                        <div style="text-align:center">
+                        <button class="btn btn-primary my-2 my-sm-0" type="submit">Apply</button>
+                    </div>
+                    </td>
+                    </tr>
+                    </table>
+                    </form>
+                <hr class="my-7">
+                <table class="table table-bordered table-hover">
+                  <thead>
+                    <tr class="text-primary">
+                        <td style="width: 12%"><b>Category</b></td>
+                        <td style="width: 22%"><b>Category</b></td>
+                        <td style="width: 7%"><b>KEGG_ID</b></td>
+                        <td style="width: 25%"><b>Description</b></td>
+                        <td style="width: 17%"><b>Genes</b></td>
+                        <td style="width: 17%"><b>HSD_ID</b></td>
+                    </tr>
+                  </thead>
+                  <tbody id="tbody">
+                  </tbody>
+                </table>
+                <div id="page_content" class="row justify-content-center align-items-center"></div></div>
+                <div class="tab-pane fade {% if active_tab == 'heatmap' %} show active {% endif %}" id="pills-profile-1" role="tabpanel" aria-labelledby="pills-profile-tab-1">
+                <form class="form-inline my-2 my-lg-0" action="/database/kegg/" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                <table width="100%" cellpadding="25" border="0">
+                <tr>
+                    <td style="width: 40%; text-align: right; vertical-align: top;">
+                        <p><b>Select organisms to build a heatmap</b></p>
+                    </td>
+                    <td class="bg-light" style="width: 30%; text-align: left; vertical-align: middle;">
+                        <div style="overflow:scroll; width:200px; height: 150px;">
+                            {% for org in species %}
+                                <div class="custom-control custom-checkbox mb-2">
+                                  <input type="checkbox" class="custom-control-input" name="select_species" onclick="chkbox(this);" id="customCheck_{{ org.species }}" value="{{ org.species}}">
+                                  <label class="custom-control-label u-font-size-90" for="customCheck_{{ org.species }}">{{ org.species }}</label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </td>
+                    <td rowspan="2" style="width: 30%; text-align: center; vertical-align: bottom;">
+                        <button class="btn btn-primary my-2 my-sm-0" type="submit">Creat Heatmap</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 40%; text-align: right; vertical-align: middle;">
+                        <div class="form-inline">
+                            <label for="select_method"><b>Clustering Method&nbsp;&nbsp;</b></label>
+                        <select class="form-control w-50" id="select_method" name="method">
+                          <option id="single">Single</option>
+                          <option id="complete">Complete</option>
+                          <option id="Average">Average</option>
+                        </select>
+                        </div>
+                        <p>&nbsp;&nbsp;</p>
+                        <div class="form-inline">
+                            <label for="select_metric"><b>Distance Metric&nbsp;&nbsp;</b></label>
+                        <select class="form-control w-50" id="select_metric" name="metric">
+                          <option id="euclidean">Euclidean</option>
+                          <option id="cosine">Cosine</option>
+                          <option id="correlation">Correlation</option>
+                        </select>
+                        </div>
+                    </td>
+                    <td style="width: 30%; text-align: left;">
+                        <div class="form-group form-inline">
+                            <p><b>Cluster:&nbsp;&nbsp;</b></p>
+                            <p><div class="custom-control custom-checkbox mb-2 align-self-center">
+                            <input type="checkbox" class="custom-control-input" name="select_cluster" id="row" value="row">
+                            <label class="custom-control-label u-font-size-90" for="row">row&nbsp;</label></div>
+                            <div class="custom-control custom-checkbox mb-2 align-self-center">
+                            <input type="checkbox" class="custom-control-input" name="select_cluster" id="col" value="col">
+                            <label class="custom-control-label u-font-size-90" for="col">col&nbsp;</label></div></p>
+                        </div>
+                        <div class="form-group form-inline">
+                            <p ><b>Standardize:&nbsp;&nbsp;</b></p>
+                            <p><div class="custom-control custom-checkbox mb-2 align-self-center">
+                            <input type="checkbox" class="custom-control-input dept" name="select_standard" onclick="check(this)" id="row1" value="row">
+                            <label class="custom-control-label u-font-size-90" for="row1">row&nbsp;</label></div>
+                            <div class="custom-control custom-checkbox mb-2 align-self-center">
+                            <input type="checkbox" class="custom-control-input dept" name="select_standard" onclick="check(this)" id="col1" value="col">
+                            <label class="custom-control-label u-font-size-90" for="col1">col&nbsp;</label></div></p>
+                        </div>
+                        <div class="form-group form-inline">
+                            <p><b>Figure Size:&nbsp;&nbsp;</b></p>
+                        <label class="u-font-size-90" for="row2">row&nbsp;</label>
+                        <input type="text" class="form-control" style="width: 50px" name="input_row" id="row2" value="12">
+                        <label class="u-font-size-90" for="col2">&nbsp;col&nbsp;</label>
+                        <input type="text" class="form-control" style="width: 50px" name="input_col" id="col2" value="12">
+                        </div>
+                    </td>
+                </tr>
+                </table>
+                </form>
+                <hr class="my-7">
+                {% if img %}
+                <p>
+                    <img src="{{ img }}">
+                </p>
+                {% endif %}
+                {% if path %}
+                    <p>
+                    <b>Download:&nbsp;&nbsp;</b><a href="/database/kegg/download/{{ path }}/" >{{ path }}</a>
+                    </p>
+                {% endif %}
+                </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) -->
+    <!-- Global Vendor -->
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'jquery.migrate.min.js' %}"></script>
+    <script src="{% static 'popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+
+    <!-- Components Vendor  -->
+    <script src="{% static 'jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'jquery.parallax.js' %}"></script>
+
+    <!-- Theme Settings and Calls -->
+    <script src="{% static 'global.js' %}"></script>
+
+    <!-- Theme Components and Settings -->
+    <script src="{% static 'parallax.js' %}"></script>
+    <script language="javascript">
+    function chkbox(elm)
+    {
+        var obj=document.getElementsByName("select_species");
+        var num=0;
+        for (var i=0;i<obj.length ;i++ )
+            if (obj[i].checked) num++;
+
+        if (num>7){
+            alert("You can only select 7 organisms at a time.");
+            for (var i=0;i<obj.length ;i++){
+                elm.checked=false;
+            }
+        }
+    }
+    function check(obj) {
+        $('.dept').attr('checked', false);//clear all
+        $(obj).attr('checked', true);//set the current one checked
+    }
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+        let now_page = 1;
+        let total_page = 1;
+        let cat = '';
+        $("#page_form").submit(function (e){
+            e.preventDefault();
+            now_page = 1;
+            cat = $('#organism option:selected').text();
+            page_click()
+        })
+        $('#page_content').on('click', '#p_page', function (e) {
+            e.preventDefault();
+            now_page -= 1;
+            if (now_page < 1) {
+                now_page = 1;
+                return false
+            } else {
+                page_click()
+            }
+        });
+        $('#page_content').on('click', '#n_page', function (e) {
+            e.preventDefault();
+            now_page += 1;
+            if (now_page > total_page) {
+                now_page -= 1;
+                return false
+            } else {
+                page_click()
+            }
+        });
+        $('#page_content').on('click', '#f_page', function (e) {
+            e.preventDefault();
+            now_page = 1;
+            page_click()
+        });
+        $('#page_content').on('click', '#l_page', function (e) {
+            e.preventDefault();
+            now_page = total_page;
+            page_click()
+        });
+        $('#page_content').on('click', '#now_page', function (e) {
+            e.preventDefault();
+            now_page = parseInt($(this).text());
+            page_click()
+        });
+
+        function page_click() {
+            let page_form = $('#page_form');
+            $.ajax({
+                type: 'POST',
+                url: page_form.attr('action'),
+                dataType:"json",
+                data: {'page_now': now_page,
+                'species': cat,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                success: function (data) {
+                    now_page = data.page_now
+                    total_page = data.page_total
+                    let body = '';
+                    $.each(data.keggs, function (k, v) {
+                        {#var value = eval("("+v+")")#}
+                        body += v;
+                    });
+                    $('#tbody').html('<tr>' + body + '</tr>');
+                    let page_html = '<nav aria-label="Bootstrap Pagination Example">\n' +
+                        '                  <ul class="pagination">';
+                    if (data.page_has_p === true) {
+                        page_html += '<li class="page-item">\n' +
+                            '<a class="page-link" id="f_page" href="">&laquo; First</a>\n' +
+                            '</li><li class="page-item">\n' +
+                            '<a class="page-link" id="p_page" href="" aria-label="Previous">Previous</a>\n</li>';
+                    } else {
+                        page_html += '<li class="page-item disabled">\n' +
+                            '<a class="page-link" id="f_page" href="">&laquo; First</a>\n' +
+                            '</li><li class="page-item disabled">\n' +
+                            '<a class="page-link" id="p_page" href="" aria-label="Previous">Previous</a></li>';
+                    }
+                    $.each(data.page_range, function (index, page_n){
+                        if (page_n === parseInt(data.page_now)){
+                            page_html += '<li id="now_page" class="page-item active"><a class="page-link" href="">' + page_n + '</a></li>';
+                        } else {
+                            page_html += '<li id="now_page" class="page-item"><a class="page-link" href="">' + page_n + '</a></li>';
+                        }
+                    });
+                    if (data.page_has_n === true) {
+                        page_html += '<li class="page-item">\n' +
+                            '<a class="page-link" id="n_page" href="" aria-label="Next">Next</a>\n' +
+                            '</li><li class="page-item">\n' +
+                            '<a class="page-link" id="l_page" href="">Last &raquo;</a></li>';
+                    } else {
+                        page_html += '<li class="page-item disabled">\n' +
+                            '<a class="page-link" id="n_page" href="" aria-label="Next">Next</a>\n' +
+                            '</li><li class="page-item disabled">\n' +
+                            '<a class="page-link" id="l_page" href="">Last &raquo;</a></li>';
+                    }
+                    page_html += '</ul></nav>';
+                    $('#page_content').html(page_html)
+                }
+            })
+        }
+    })
+    </script>
+
+</body>
+</html>

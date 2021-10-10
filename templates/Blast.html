@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+
+    <!-- Web Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Playfair+Display:400,700%7COpen+Sans:300,400,700" rel="stylesheet">
+
+    <!-- Bootstrap Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+
+    <!-- Components Vendor Styles -->
+    <script src="https://kit.fontawesome.com/020635d014.js" crossorigin="anonymous"></script>
+
+    <!-- Theme Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+    <title>Blast</title>
+</head>
+<body data-spy="scroll" data-target="#bs-example-navbar-collapse-1" data-offset="100">
+    <!-- Header -->
+    <header role="header">
+      <!-- Navbar -->
+      <nav class="js-navbar-scroll navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/database/">
+            HSDatabase
+          </a>
+
+          <button class="navbar-toggler" type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarTogglerDemo"
+
+                  aria-controls="navbarTogglerDemo"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo">
+
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/">Home</a>
+              </li>
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/browse/">Browse</a>
+              </li>
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/search/">Search</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link active" href="/database/blast/">Blast</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/kegg/">KEGG</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/faq/">Tutorial</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+
+    </header>
+    <!-- End Header -->
+
+    <main role="main">
+        <section class="u-content-space">
+            <div class="container">
+                <h2 class="h1 font-weight-light mb-1"> BLAST Database</h2>
+                <hr class="my-7">
+                    <form id="blast_form" class="form-horizontal my-2 my-lg-0" action="/database/blast/" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <table width="100%" cellpadding="15" border="0">
+                    <tr>
+                        <td style="width: 25%; text-align: right; vertical-align: middle;">
+                            <p><b>Organism</b></p>
+                        </td>
+                        <td style="width: 75%; text-align: left; vertical-align: middle;">
+                            <select class="form-control w-75" id="organism" name="species">
+                                <option id="All Organisms">All Organisms</option>
+{#                                {% for c in cat %}#}
+{#                                <option id="{{ c }}">{{ c }}</option>#}
+{#                                {% endfor %}#}
+                                {% for s in species %}
+                                <option id="{{ s }}">{{ s }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%; text-align: right; vertical-align: middle;">
+                            <p><b>Algorithm</b></p>
+                        </td>
+                        <td style="width: 75%; text-align: left; vertical-align: middle;">
+                            <select class="form-control w-75" id="algorithm" name="algorithm">
+                                <option class="form-control w-75" id="BLASTP">BLASTP</option>
+                                <option class="form-control w-75" id="BLASTX">BLASTX</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%; text-align: right; vertical-align: middle;">
+                            <p><b>Exception Value</b></p>
+                        </td>
+                        <td style="width: 75%; text-align: left; vertical-align: middle;">
+                            <select class="form-control w-75" id="evalue" name="e_value">
+                                <option class="form-control w-75" id="1e-20">1e-20</option>
+                                <option class="form-control w-75" id="1e-10">1e-10</option>
+                                <option class="form-control w-75" id="1e-5">1e-5</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 25%; vertical-align: middle; text-align: right;">
+                            <p><b>Max. target sequences</b></p>
+                        </td>
+                        <td style="width: 75%; text-align: left; vertical-align: middle;">
+                            <select class="form-control w-75" id="target" name="m_target">
+                                <option class="form-control w-75" id="5">5</option>
+                                <option class="form-control w-75" id="10">10</option>
+                                <option class="form-control w-75" id="50">50</option>
+                            </select>
+                        </td>
+                    </tr>
+                    </table>
+                    <hr class="my-7">
+                    <div class="form-group">
+                        <label for="sequence"><b>Sequence in FASTA format</b></label>
+                        <textarea name="up_text" id="sequence" cols="100" rows="8"></textarea>
+                        <br><br>
+                        <p><b>Or</b></p>
+                        <p><b>Upload FASTA file</b></p>
+                        <input type="file" id="upload-file" name="up_file">
+                    </div>
+                    <hr class="my-7">
+                    <div style="text-align:center">
+                    <button id="submit_button" class="btn btn-primary my-2 my-sm-0" type="submit">BLAST</button>
+                    </div>
+              </form>
+                </div>
+        <hr>
+        <div id="blast_div" class="container">
+{#            {% if error %}#}
+{#                <div class="alert alert-danger" role="alert">#}
+{#                    <span class="glyphicon glyphicon-exclamation-sign"></span>#}
+{#                    <span class="sr-only">Error:</span> {{ error }}#}
+{#                </div>#}
+{#            {% endif %}#}
+{#            {% if length == 0 %}#}
+{#                <p class="lead">No blast result</p>#}
+{#            {% endif %}#}
+{#            {% if length%}#}
+{#                <p class="lead">{{ length }} blast result</p>#}
+{#            {% endif %}#}
+{#        {% if results %}#}
+{#<table class="table table-bordered table-striped"><thead><tr class="text-primary">#}
+{#<td style="width: 10%"><b>query_id</b></td><td style="width: 10%"><b>seq_id</b></td>#}
+{#<td style="width: 7%"><b>HSD_id</b></td><td style="width: 10%"><b>p_identity</b></td>#}
+{#<td style="width: 7%"><b>aln_length</b></td><td style="width: 7%"><b>mismatches</b></td>#}
+{#<td style="width: 7%"><b>gap_openings</b></td><td style="width: 7%"><b>q_start</b></td>#}
+{#<td style="width: 7%"><b>q_end</b></td><td style="width: 7%"><b>s_start</b></td>#}
+{#<td style="width: 7%"><b>s_end</b></td><td style="width: 7%"><b>e_value</b></td>#}
+{#<td style="width: 7%"><b>bit_score</b></td></tr></thead><tbody>#}
+{#                  {% for r in results %}#}
+{#                    <tr><td style="width: 10%">{{  r.query }}</td>#}
+{#                        <td style="width: 10%">{{  r.seq }}</td>#}
+{#                        <td style="width: 10%">#}
+{#                            {% for hsd in r.hsds %}#}
+{#                            <a href="/database/hsd_detail/{{ hsd.id }}">{{  hsd.name }}</a>#}
+{#                            {% endfor %}#}
+{#                        </td>#}
+{#                        <td style="width: 7%">{{  r.per }}</td>#}
+{#                        <td style="width: 7%">{{  r.overlap }}</td>#}
+{#                        <td style="width: 7%">{{  r.mismatch }}</td>#}
+{#                        <td style="width: 7%">{{  r.gapopen }}</td>#}
+{#                        <td style="width: 7%">{{  r.qstart }}</td>#}
+{#                        <td style="width: 7%">{{  r.qend }}</td>#}
+{#                        <td style="width: 7%">{{  r.sstart }}</td>#}
+{#                        <td style="width: 7%">{{  r.send }}</td>#}
+{#                        <td style="width: 7%">{{  r.evalue }}</td>#}
+{#                        <td style="width: 7%">{{  r.bitscore }}</td>#}
+{#                    </tr>#}
+{#            {% endfor %}#}
+{#                  </tbody>#}
+{#                </table>#}
+{#        {% endif %}#}
+        </div>
+        <div class="modal" id="loading" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <i class="fas fa-spinner text-primary" style="font-size: 50px"></i><br>
+                        <p></p>
+                        <p class="text-primary">Processing...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+    </main>
+
+
+{#    <!-- Footer -->#}
+{#    <footer class="bg-dark" role="footer">#}
+{#      <div class="container-fluid">#}
+{#        <!-- Copyright and Social Icons -->#}
+{#          <div class="text-center">#}
+{#            <small class="text-white">&copy; 2020 <a class="text-white">HSDFinder</a>. All Rights Reserved.</small>#}
+{#          </div>#}
+{#        <!-- End Copyright and Social Icons -->#}
+{#      </div>#}
+{#    </footer>#}
+    <!-- End Footer -->
+    <!-- JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) -->
+    <!-- Global Vendor -->
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'jquery.migrate.min.js' %}"></script>
+    <script src="{% static 'popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+
+    <!-- Components Vendor  -->
+    <script src="{% static 'jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'jquery.parallax.js' %}"></script>
+
+    <!-- Theme Settings and Calls -->
+    <script src="{% static 'global.js' %}"></script>
+
+    <!-- Theme Components and Settings -->
+    <script src="{% static 'parallax.js' %}"></script>
+    <script type="text/javascript">
+        $("#blast_form").submit(function (e){
+            e.preventDefault();
+            var data = new FormData($('#blast_form')[0]);
+            $('#loading').modal({backdrop:"static", keyboard:false});
+            $('#submit_button').attr("disabled", true);
+            $.ajax({
+                type: 'POST',
+                url: $("#blast_form").attr('action'),
+                dataType:"json",
+                data: data,
+                cache: false,
+                processData:false,
+                contentType:false,
+                success: function (data) {
+                    $("#blast_div").empty();
+                    $('#loading').modal('hide');
+                    $('#submit_button').attr("disabled", false);
+                    if (data.length){
+                        var html4 = '<table class="table table-bordered table-striped"><thead><tr class="text-primary">\n' +
+                            '<td style="width: 10%"><b>query_id</b></td><td style="width: 10%"><b>seq_id</b></td>\n' +
+                            '<td style="width: 7%"><b>HSD_id</b></td><td style="width: 10%"><b>p_identity</b></td>\n' +
+                            '<td style="width: 7%"><b>aln_length</b></td><td style="width: 7%"><b>mismatches</b></td>\n' +
+                            '<td style="width: 7%"><b>gap_openings</b></td><td style="width: 7%"><b>q_start</b></td>\n' +
+                            '<td style="width: 7%"><b>q_end</b></td><td style="width: 7%"><b>s_start</b></td>\n' +
+                            '<td style="width: 7%"><b>s_end</b></td><td style="width: 7%"><b>e_value</b></td>\n' +
+                            '<td style="width: 7%"><b>bit_score</b></td></tr></thead><tbody>';
+                        $.each(data.results, function (index, content) {
+                            html4 += content;
+                        });
+                        html4 += '</tbody></table>';
+                        $("#blast_div").html(html4);
+                    }else if (data.length === 0){
+                        var html3 = '<p class="lead">No blast result</p>';
+                        $("#blast_div").append(html3);
+                    }else if(data.error){
+                        var html2 = '<div class="alert alert-danger" role="alert">\n' +
+                            '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>\n' +
+                            '<span class="sr-only">Error:</span>' + data.error + '</div>';
+                        $("#blast_div").append(html2);
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

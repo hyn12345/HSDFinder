@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+
+    <!-- Web Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Playfair+Display:400,700%7COpen+Sans:300,400,700" rel="stylesheet">
+
+    <!-- Bootstrap Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+
+    <!-- Components Vendor Styles -->
+    <script src="https://kit.fontawesome.com/020635d014.js" crossorigin="anonymous"></script>
+
+    <!-- Theme Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+    <title>Tutorial</title>
+</head>
+<body data-spy="scroll" data-target="#bs-example-navbar-collapse-1" data-offset="100">
+    <!-- Header -->
+    <header role="header">
+      <!-- Navbar -->
+      <nav class="js-navbar-scroll navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/database/">
+            HSDatabase
+          </a>
+
+          <button class="navbar-toggler" type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarTogglerDemo"
+
+                  aria-controls="navbarTogglerDemo"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo">
+
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/">Home</a>
+              </li>
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/browse/">Browse</a>
+              </li>
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/search/">Search</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/blast/">Blast</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/kegg/">KEGG</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link active" href="/database/faq/">Tutorial</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+    </header>
+    <!-- End Header -->
+
+    <main role="main">
+    <section class="u-content-space">
+        <div class="container">
+            <h2>Tutorial for HSDatabase&nbsp;</h2><b><a href="/example/download/HSDatabase_Tutorials.pdf/" style="text-decoration: underline">[Download Tutorial for HSDatabase.pdf]</a></b>
+            <div class="col-lg-12 align-self-center">
+              <img class="img-fluid rounded" src="{% static 'HSDatabase.png' %}" alt="Iamge Description">
+            <hr class="my-7">
+            </div>
+            <div>
+                {% load embed_video_tags %}
+                <p class="lead">
+                    <br>
+                    <strong>Webinars: Using Bioinformatics Tools to Predict, Collect and Visualize the Highly Similar Duplicates in Eukaryotic Genomes</strong>
+                </p>
+                {% video head_video.video 'small' %}
+                <p class="lead"><br><br>
+                    <strong>HSDatabase </strong>- a database of highly similar duplicate genes in eukaryotic genomes. (<a href="http://hsdfinder.com/database/">http://hsdfinder.com/database/</a>)
+                </p><p>
+                    &emsp;Series 4: How to use the HSDatabase - browse and search?
+                    <br>&emsp;Series 5: How to use the HSDatabase - BLAST and KEGG?
+                </p>
+                    {% for i in videos_db %}
+                        {% video i.video '350x261' %}
+                    {% endfor %}
+            </div>
+        <hr class="my-7">
+        </div>
+{#    </section>#}
+{#        <section class="u-content-space">#}
+            <div class="container">
+                {% for type, faq in faqs.items %}
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <p class="lead">
+                    <b>FAQ</b>
+                </p>
+                    {% for item in faq %}
+                  <p><div class="card">
+                    <div class="card-header" role="tab" id="heading_{{ item.t }}">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{ item.t }}" aria-expanded="true" aria-controls="collapseOne">
+                          {{ item.q }}
+                        </a>
+                    </div>
+                    <div id="collapse_{{ item.t }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading_{{ item.t }}">
+                      <div class="card-body">
+                        {{ item.a }}
+                      </div>
+                    </div>
+                  </div></p>
+                        {% endfor %}
+{#                <hr class="my-7">#}
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+
+{#    <!-- Footer -->#}
+{#    <footer class="bg-dark py-2">#}
+{#      <div class="container-fluid">#}
+{#          <div class="text-center">#}
+{#            <small class="text-white">&copy; 2020 <a class="text-white" href="">HSDFinder</a>. All Rights Reserved.</small>#}
+{#        </div>#}
+{#      </div>#}
+{#    </footer>#}
+    <!-- JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) -->
+    <!-- Global Vendor -->
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'jquery.migrate.min.js' %}"></script>
+    <script src="{% static 'popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+
+    <!-- Components Vendor  -->
+    <script src="{% static 'jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'jquery.parallax.js' %}"></script>
+
+    <!-- Theme Settings and Calls -->
+    <script src="{% static 'global.js' %}"></script>
+
+    <!-- Theme Components and Settings -->
+    <script src="{% static 'parallax.js' %}"></script>
+
+</body>
+</html>

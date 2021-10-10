@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+
+    <!-- Web Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Playfair+Display:400,700%7COpen+Sans:300,400,700" rel="stylesheet">
+
+    <!-- Bootstrap Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+
+    <!-- Components Vendor Styles -->
+    <script src="https://kit.fontawesome.com/020635d014.js" crossorigin="anonymous"></script>
+
+    <!-- Theme Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <title>NoBadWords Combiner</title>
+</head>
+<body id="js-home" data-spy="scroll" data-target="#navbarTogglerDemo" data-offset="100" onscroll=SetCookie("scroll",document.documentElement.scrollTop); onload="scrollback();">
+    <!-- Header -->
+    <header role="header">
+      <!-- Navbar -->
+      <nav class="js-navbar-scroll navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/combiner/">
+            NoBadWords Combiner
+          </a>
+
+          <button class="navbar-toggler" type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarTogglerDemo"
+
+                  aria-controls="navbarTogglerDemo"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a href="#js-scroll-to-run" class="nav-link">
+                  <i class="fas fa-cubes u-font-size-90 mr-1"></i>
+                    Run NoBadWords Combiner
+                </a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="#js-scroll-to-docs">
+                  <i class="fas fa-book u-font-size-90 mr-1"></i> Docs
+                </a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="#js-scroll-to-download">
+                  <i class="fas fa-download u-font-size-90 mr-1"></i> Download
+                </a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="#js-scroll-to-contact">
+                  <i class="fas fa-envelope u-font-size-90 mr-1"></i> Cite
+                </a>
+              </li>
+            </ul>
+          </div>
+{#            <a class="btn btn-primary" href="/">#}
+{#                HSDFinder#}
+{#            </a>#}
+        </div>
+      </nav>
+      <!-- End Navbar -->
+
+    </header>
+    <!-- End Header -->
+
+    <main role="main">
+        <!-- Run Section -->
+        <section id="js-scroll-to-run" class="u-content-space">
+            <div class="container">
+              <header class="w-md-75 mx-auto text-center mb-7">
+                <h2 class="h1 font-weight-light mb-1 text-primary">Run NoBadWords Combiner</h2>
+                <p>NoBadWords Combiner can integrate the gene function information together and minimize ‘bad words’ including Nr-NCBI, UniProtKB/Swiss-Prot, KEGG, and Pfam etc.</p>
+              </header>
+                <form id="run_form" action="/combiner/submit/" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card">
+                    <div class="card-header">
+                    <h3 class="h6 mb-0"><b>Run</b></h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row border-primary">
+                        <div class="col-4">
+                            <p class="help-block">NCBI nr&nbsp;&nbsp;<i class="fas fa-question-circle u-font-size-90 mr-1" style="color: #59287a;" data-toggle="popover" data-placement="right" data-content="The BLAST results of your interest species against NCBI nr database."></i>
+                            &nbsp;&nbsp;<a href="/example/download/NoBadWords_NCBI.txt/">Example1</a>
+                                <input type="file" name="ncbi_file"></p>
+                        </div>
+                        <div class="col-4">
+                            <p class="help-block">Swiss prot&nbsp;&nbsp;<i class="fas fa-question-circle u-font-size-90 mr-1" style="color: #59287a;" data-toggle="popover" data-placement="right" data-content="The BLAST results of your interest species against Swiss Prot database."></i>
+                            &nbsp;&nbsp;<a href="/example/download/NoBadWords_Swiss.txt/">Example2</a>
+                                <input type="file" name="swiss_file"></p>
+                        </div>
+                        <div class="col-4">
+                            <p class="help-block">Gene list&nbsp;&nbsp;<i class="fas fa-question-circle u-font-size-90 mr-1" style="color: #59287a;" data-toggle="popover" data-placement="right" data-content="A gene list of your interest species."></i>
+                            &nbsp;&nbsp;<a href="/example/download/NoBadWords_genelist.txt/">Example3</a>
+                                <input type="file" name="gene_file"></p>
+                        </div>
+                        </div>
+                        <hr class="my-7">
+                        <div class="row border-primary">
+                        <div class="col-4 align-self-center">
+                            <p class="help-block">Gene list with KO annotation&nbsp;&nbsp;<i class="fas fa-question-circle u-font-size-90 mr-1" style="color: #59287a;" data-toggle="popover" data-placement="right" data-content="The file is retrieved from the KEGG database documented the correlation of KO accession with each gene model identifier."></i>
+                            &nbsp;&nbsp;<a href="/example/download/NoBadWords_ko.txt/">Example4</a>
+                                <input type="file" name="ko_file"></p>
+                        </div>
+                        <div class="col-4 align-self-center">
+                            <p class="help-block">Pfam file&nbsp;&nbsp;<i class="fas fa-question-circle u-font-size-90 mr-1" style="color: #59287a;" data-toggle="popover" data-placement="right" data-content="The Pfam domain identifier as well as IPR identifier provide more details about the function of each HSDs."></i>
+                            &nbsp;&nbsp;<a href="/example/download/NoBadWords_Pfam.txt/">Example5</a>
+                                <input type="file" name="pfam_file"></p>
+                        </div>
+                        <div class="col-4 align-self-center">
+                            <label class="help-block w-50" for="dropdown"> Select type:&nbsp;&nbsp;<i class="fas fa-question-circle u-font-size-90 mr-1" style="color: #59287a;" data-toggle="popover" data-placement="right" data-content="Select protein function databases (e.g., PFAM ). InterProScan (v4.7), which integrates predictive information about protein function from a number of partner resources, such as the InterPro and Pfam databases."></i>
+                            </label>
+                            <select class="form-control w-50" name="dropdown" id="dropdown">
+                                <option selected="selected" id="Pfam">Pfam</option>
+                                <option id="CDD">CDD</option>
+                                <option id="Hamap">Hamap</option>
+                                <option id="PRINTS">PRINTS</option>
+                                <option id="ProDom">ProDom</option>
+                                <option id="ProSitePatterns">ProSitePatterns</option>
+                                <option id="ProSiteProfiles">ProSiteProfiles</option>
+                                <option id="SFLD">SFLD</option>
+                                <option id="TIGRFAM">TIGRFAM</option>
+                            </select>
+                        </div>
+                        </div>
+                        <hr class="my-7">
+                        <div class="row justify-content-center">
+                        <button type="submit" id="submit_button" class="btn btn-primary my-2 my-sm-0">Submit</button>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+                <br><br>
+            <div id="run_div"></div>
+                {% if filename %}
+                <table width="100%" border="0" cellpadding="4" align="left" style="table-layout:fixed; word-wrap: break-word;"><tr>
+                <td> <b>Output: </b> </td></tr><tr><td><blockquote class="blockquote-v1">
+                <a href="/download/{{ filename }}/" >{{ filename }}</a></blockquote></td></tr></table>
+                {% endif %}
+                {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span> {{ error }}</div>
+                {% endif %}
+            </div>
+
+            <div class="modal" id="loading" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                <div class="modal-body text-center">
+                    <i class="fas fa-spinner text-primary" style="font-size: 50px"></i><br>
+                    <p></p>
+                    <p class="text-primary">Generating NoBadWords file...This may take several minutes...</p>
+                </div>
+                </div>
+                </div>
+            </div>
+
+        </section>
+    <hr>
+    <section class="u-content-space bg-light" id="js-scroll-to-docs">
+        <div class="container">
+            <header class="w-md-50 mx-auto text-center mb-7">
+            <h2 class="h1 font-weight-light mb-1 text-primary">How it works?</h2>
+            </header>
+            <p class="lead">
+                 Unlike the NCBI-NR or UniProtKB/Swiss-Prot, although they provide valuable function description of the interested genes; however, many hypothetical proteins or ‘bad name’ proteins are also included in the respective database, which will mess up the interpretation of functional gene annotations. We developed this software can integrate the gene function information together and minimize ‘bad words’ including Nr-NCBI, UniProtKB/Swiss-Prot, KEGG, and Pfam etc.
+            </p>
+        </div>
+    </section>
+    <hr>
+    <section class="u-content-space" id="js-scroll-to-download">
+        <div class="container">
+            <header class="w-md-50 mx-auto text-center mb-7">
+            <h2 class="h1 font-weight-light mb-1 text-primary">Where to download</h2>
+            </header>
+            <div class="panel-body">
+                <p class="lead">The distribution version of NoBadWords Combiner is also available.
+                    <br>Current version: v1 (5 August 2020) [<a href="https://github.com/zx0223winner/NoBadWordsCombiner">download</a>].<br>
+{#                <span class="fas fa-download" style="color: #59287a"></span> Current version: v1 (5 August 2020) [<a href="https://github.com/zx0223winner/HSDFinder">download</a>].#}
+                </p>
+            </div>
+        </div>
+        <div align="center"><script type="text/javascript" src="//rk.revolvermaps.com/0/0/4.js?i=5kxz34di3b4&amp&amp;m=0&amp;h=1&amp;c=ff0000&amp;r=0.5" async="async" ></script></div>
+    </section>
+
+    <hr>
+
+    <section class="u-content-space bg-light" id="js-scroll-to-contact">
+        <div class="container">
+            <header class="w-md-50 mx-auto text-center mb-7">
+            <h2 class="h1 font-weight-light mb-1 text-primary">How to cite</h2>
+            </header>
+            <p class="lead">
+                X. Zhang, Yining. Hu, D. Smith (2021). Protocol for using NoBadWordsCombiner to merge and minimize ‘bad words’ from BLAST hits against multiple eukaryotic gene annotation databases etc. doi: upcoming
+{#                <a href="https://doi.org/10.1016/j.xpro.2021.100619" style="text-decoration: underline">DOI:https://doi.org/10.1016/j.xpro.2021.100619</a>#}
+                <br>
+                Xi Zhang, Marina Cvetkovska, Rachael Morgan-Kiss, Norman P. A. Hüner, David Roy Smith, (2021). Draft genome sequence of the Antarctic green alga Chlamydomonas sp. UWO241. iScience. <a href="https://doi.org/10.1016/j.isci.2021.102084" style="text-decoration: underline">https://doi.org/10.1016/j.isci.2021.102084</a>
+            </p>
+        </div>
+    </section>
+    </main>
+    <!-- Footer -->
+{#    <footer class="bg-dark py-2" role="footer">#}
+{#      <div class="container-fluid">#}
+{#        <!-- Copyright and Social Icons -->#}
+{#          <div class="text-center">#}
+{#            <small class="text-white">&copy; 2020 <a class="text-white">HSDFinder</a>. All Rights Reserved.</small>#}
+{#          </div>#}
+{#        <!-- End Copyright and Social Icons -->#}
+{#      </div>#}
+{#    </footer>#}
+    <!-- End Footer -->
+
+    <!-- JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) -->
+    <!-- Global Vendor -->
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'jquery.migrate.min.js' %}"></script>
+    <script src="{% static 'popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+
+    <!-- Components Vendor  -->
+    <script src="{% static 'jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'jquery.parallax.js' %}"></script>
+
+    <!-- Theme Settings and Calls -->
+    <script src="{% static 'global.js' %}"></script>
+
+    <!-- Theme Components and Settings -->
+    <script src="{% static 'parallax.js' %}"></script>
+    <script type="text/javascript">
+        $("#run_form").submit(function (e){
+            e.preventDefault();
+            var data = new FormData($('#run_form')[0]);
+            $('#loading').modal({backdrop:"static", keyboard:false});
+            $('#submit_button').attr("disabled", true);
+            $.ajax({
+                type: 'POST',
+                url: $("#run_form").attr('action'),
+                dataType:"json",
+                data: data,
+                cache: false,
+                processData:false,
+                contentType:false,
+                success: function (data) {
+                    $("#run_div").empty();
+                    $('#loading').modal('hide');
+                    $('#submit_button').attr("disabled", false);
+                    if (data.filename){
+                        var html1 = '<table width="100%" border="0" cellpadding="4" align="left" style="table-layout:fixed; word-wrap: break-word;"><tr>\n' +
+                            '<td> <b>Output: </b> </td></tr><tr><td><blockquote class="blockquote-v1">\n' +
+                            '<a href="/download/' + data.filename + '/" >' + data.filename + '</a></blockquote></td></tr></table>';
+                        $("#run_div").append(html1);
+                    }else if (data.error){
+                        var html2 = '<div class="alert alert-danger" role="alert">\n' +
+                            '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>\n' +
+                            '<span class="sr-only">Error:</span>' + data.error + '</div>';
+                        $("#run_div").append(html2);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+
+    <!-- Web Fonts -->
+    <link href="//fonts.googleapis.com/css?family=Playfair+Display:400,700%7COpen+Sans:300,400,700" rel="stylesheet">
+
+    <!-- Bootstrap Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+
+    <!-- Components Vendor Styles -->
+    <script src="https://kit.fontawesome.com/020635d014.js" crossorigin="anonymous"></script>
+
+    <!-- Theme Styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <style type="text/css">
+        .table tr td{
+            vertical-align: middle;
+            text-align: center;
+        }
+    </style>
+
+    <title>HSD</title>
+</head>
+<body data-spy="scroll" data-target="#bs-example-navbar-collapse-1" data-offset="100">
+    <!-- Header -->
+    <header role="header">
+      <!-- Navbar -->
+      <nav class="js-navbar-scroll navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/database/">
+            HSDatabase
+          </a>
+
+          <button class="navbar-toggler" type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarTogglerDemo"
+
+                  aria-controls="navbarTogglerDemo"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo">
+
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/">Home</a>
+              </li>
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link active" href="/database/browse/">Browse</a>
+              </li>
+              <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/search/">Search</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/blast/">Blast</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/kegg/">KEGG</a>
+              </li>
+                <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link" href="/database/faq/">Tutorial</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+
+    </header>
+    <!-- End Header -->
+
+    <main role="main">
+        <section class="u-content-space">
+            <div class="container">
+                <header class="w-md-50 mx-auto text-center mb-7">
+                    <h2 class="h1 font-weight-light mb-1 text-primary">{{ file.name }}</h2>
+                </header>
+                <div class="row">
+                    <label class="col-md-1">
+                        <h3 class="h5 mb-3"> HSDs </h3>
+                    </label>
+                    <div class="col-md-11">
+                      <p class="lead">{{ file.hsds_num }}</p>
+                    </div>
+                </div>
+{#              <p>{{ file.description|safe }}</p>#}
+
+                <table class="table table-bordered table-striped">
+    {#                  <caption>description</caption>#}
+                  <thead>
+                    <tr class="text-primary">
+                        <td style="width: 16%"><b>HSD ID</b></td>
+                        <td style="width: 68%"><b>Genes</b></td>
+                      <td style="width: 8%"><b>Number</b></td>
+                        <td style="width: 8%"><b>Download</b></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for hsd in hsds %}
+                    <tr>
+                      <td style="width: 16%"><a href="/database/hsd_detail/{{ hsd.h_id }}">{{ hsd.name }}</a></td>
+                      <td style="width: 68%">{{ hsd.genes }}</td>
+                      <td style="width: 8%">{{ hsd.num }}</td>
+                        <td style="width: 8%">
+                            <a href="/database/hsd_download/{{ hsd.name }}/{{ hsd.h_id }}">
+                            <i class="fas fa-download u-font-size-90 mr-1" style="color: #59287a"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+            <div class="row justify-content-center align-items-center">
+                <nav aria-label="Bootstrap Pagination Example">
+                  <ul class="pagination">
+                    {% if page_has_p %}
+                    <li class="page-item">
+                    <a class="page-link" href="/database/hsd/{{ file.id }}/1/">&laquo; First</a>
+                    </li><li class="page-item">
+                    <a class="page-link" href="/database/hsd/{{ file.id }}/{{ page_p }}/" aria-label="Previous">Previous</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                    <a class="page-link">&laquo; First</a>
+                    </li><li class="page-item disabled">
+                    <a class="page-link" aria-label="Previous">Previous</a>
+                    </li>
+                    {% endif %}
+
+                      {% for num in page_range %}
+                          {% if num == page %}
+                              <li class="page-item active"><a class="page-link">{{ num }}</a></li>
+                          {% else %}
+                              <li class="page-item"><a class="page-link" href="/database/hsd/{{ file.id }}/{{ num }}/">{{ num }}</a></li>
+                          {% endif %}
+                      {% endfor %}
+
+                    {% if page_has_n %}
+                    <li class="page-item">
+                    <a class="page-link" href="/database/hsd/{{ file.id }}/{{ page_n }}/" aria-label="Next">Next</a>
+                    </li><li class="page-item">
+                    <a class="page-link" href="/database/hsd/{{ file.id }}/{{ page_total }}/">Last &raquo;</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                    <a class="page-link" aria-label="Next">Next</a>
+                    </li><li class="page-item disabled">
+                    <a class="page-link">Last &raquo;</a>
+                    </li>
+                    {% endif %}
+                  </ul>
+                </nav>
+            </div>
+            </div>
+        <!-- end container-->
+        </section>
+    </main>
+
+
+    <!-- Footer -->
+{#    <footer class="bg-dark py-2">#}
+{#      <div class="container-fluid">#}
+{#          <div class="text-center">#}
+{#            <small class="text-white">&copy; 2020 <a class="text-white" href="">HSDFinder</a>. All Rights Reserved.</small>#}
+{#        </div>#}
+{#      </div>#}
+{#    </footer>#}
+    <!-- End Footer -->
+    <!-- JAVASCRIPTS (Load javascripts at bottom, this will reduce page load time) -->
+    <!-- Global Vendor -->
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'jquery.migrate.min.js' %}"></script>
+    <script src="{% static 'popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+
+    <!-- Components Vendor  -->
+    <script src="{% static 'jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'jquery.parallax.js' %}"></script>
+
+    <!-- Theme Settings and Calls -->
+    <script src="{% static 'global.js' %}"></script>
+
+    <!-- Theme Components and Settings -->
+    <script src="{% static 'parallax.js' %}"></script>
+
+
+</body>
+</html>
