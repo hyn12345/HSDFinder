@@ -103,20 +103,56 @@
                 <p class="lead">
                     <b>FAQ</b>
                 </p>
-                    {% for item in faq %}
+{#                    {% for item in faq %}#}
+{#                  <p><div class="card">#}
+{#                    <div class="card-header" role="tab" id="heading_{{ item.t }}">#}
+{#                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{ item.t }}" aria-expanded="true" aria-controls="collapseOne">#}
+{#                          {{ item.q }}#}
+{#                        </a>#}
+{#                    </div>#}
+{#                    <div id="collapse_{{ item.t }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading_{{ item.t }}">#}
+{#                      <div class="card-body">#}
+{#                        {{ item.a }}#}
+{#                      </div>#}
+{#                    </div>#}
+{#                  </div></p>#}
+{#                        {% endfor %}#}
                   <p><div class="card">
-                    <div class="card-header" role="tab" id="heading_{{ item.t }}">
-                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_{{ item.t }}" aria-expanded="true" aria-controls="collapseOne">
-                          {{ item.q }}
+                    <div class="card-header" role="tab" id="heading_1">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_1" aria-expanded="true" aria-controls="collapseOne">
+                          What’s HSDatabase?
                         </a>
                     </div>
-                    <div id="collapse_{{ item.t }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading_{{ item.t }}">
+                    <div id="collapse_1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading_1">
                       <div class="card-body">
-                        {{ item.a }}
+                        There are many features in HSDatabase including, but not limited to the information of HSDs number, gene copy number and gene copy length. The protein function domains and pathway of HSDs are also collected from database of KEGG and InterProScan. What’s more, a BLAST search option is provided for users to conveniently explore potential homologous sequences of interest. The HSDatabase aims to become a useful platform for the prediction and comparative analysis of HSDs in the eukaryotic genomes of different survival environments, which might deepen our insights into the gene duplication mechanisms driving the genome adaptation.
                       </div>
                     </div>
                   </div></p>
-                        {% endfor %}
+                    <p><div class="card">
+                    <div class="card-header" role="tab" id="heading_2">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_2" aria-expanded="true" aria-controls="collapseOne">
+                          How you collect the HSDs in the HSDatabase?
+                        </a>
+                    </div>
+                    <div id="collapse_2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading_2">
+                      <div class="card-body">
+                        The predicted HSDs will be manually curated before submitting to the HSDatabase. We filtered possible false positive HSDs with unfit gene copy length and add novel HSDs if necessary, especially, for those satisfy the criteria of near-identical protein lengths (within 10 amino acids and >80% pairwise identities). HSDatabase is built using a relational database (MySQL) allowing rapid retrieval of data and making resource easily maintainable. One entry corresponds to one eukaryote genome. The genomes can be browsed via the categories of plant and animal or the phylogeny for specific genome target. The genome entry is then split into many subcategories of HSDs entries. The database access is via a web interface based on python script and provides various ways to search for HSDs entries, such as organism’s name, HSDs accession number, and gene copy name, etc. HSDatabase can allow users to conveniently BLAST a query to find a homologous match. HSDatabase will be updated timely and the latest version is HSDatabase v1.5.
+                      </div>
+                    </div>
+                  </div></p>
+                    <p><div class="card">
+                    <div class="card-header" role="tab" id="heading_3">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_3" aria-expanded="true" aria-controls="collapseOne">
+                          How many species you have collected?
+                        </a>
+                    </div>
+                    <div id="collapse_3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading_3">
+                      <div class="card-body">
+                        HSDatabase is a database of categorizing these highly similar duplicate genes (HSDs) in nuclear eukaryotes, which documented total of 42,884 HSDs in 15 eukaryotic genomes.
+                      </div>
+                    </div>
+                  </div></p>
 {#                <hr class="my-7">#}
                 </div>
                 {% endfor %}
